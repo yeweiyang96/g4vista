@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
+import { LogoComponent } from '../logo/logo.component';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [],
+  imports: [ LogoComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-
+  year = new Date().getFullYear();
 }

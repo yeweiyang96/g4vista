@@ -33,8 +33,21 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "inject": false,
+                "input": "src/styles/custom-themes/azure-blue.scss",
+                "bundleName": "azure-blue"
+              },
+              {
+                "inject": false,
+                "input": "src/styles/custom-themes/green-chartreuse.scss",
+                "bundleName": "green-chartreuse"
+              }
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules", "src", "src/styles"]
+            },
             "scripts": []
           },
           "configurations": {

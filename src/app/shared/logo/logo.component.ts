@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
+
 
 @Component({
   selector: 'app-logo',
@@ -8,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrl: './logo.component.scss'
 })
 export class LogoComponent {
-
+  @HostBinding('attr.aria-hidden')
+  ariaHidden = true;
 }

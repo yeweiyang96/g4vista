@@ -1,0 +1,69 @@
+.shared-navbar-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 16px;
+
+  > .mat-mdc-button {
+    &:last-child {
+      margin-left: auto;
+    }
+  }
+}
+
+.mat-mdc-icon-button {
+  color: inherit;
+}
+
+.github-logo,
+app-logo {
+  margin-right: 8px;
+  width: 24px;
+  height: 24px;
+}
+
+.flex-spacer {
+  flex-grow: 1;
+}
+
+.shared-navbar-link {
+  text-decoration: inherit;
+  flex: 1;
+}
+
+.shared-navbar {
+  display: none;
+}
+
+.shared-navbar-show-small {
+  display: none;
+}
+
+// Rules for when the device is detected to be a small screen.
+// Moves content two rows instead of one.
+@media (max-width: 720px) {
+  .shared-navbar-hide-small {
+    display: none;
+  }
+
+  .shared-navbar-show-small {
+    display: block;
+  }
+
+  .shared-navbar {
+    display: flex;
+  }
+
+  .github-logo {
+    margin: 0;
+  }
+
+}
+
+theme-picker {
+  display: none;
+
+  @media (min-width: 328px) {
+    display: block;
+  }
+}

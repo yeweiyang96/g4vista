@@ -1,0 +1,16 @@
+@use "@angular/material" as mat;
+
+@mixin theme($theme) {
+  app-header {
+    color: mat.get-theme-color($theme, primary);
+
+    .shared-navbar,
+    .shared-navbar-header {
+      background: mat.get-theme-color($theme, primary-container);
+
+      .shared-navbar-header-item-selected {
+        background: rgba(mat.get-theme-color($theme, primary), 0.1);
+      }
+    }
+  }
+}

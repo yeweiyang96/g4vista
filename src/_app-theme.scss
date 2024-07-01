@@ -1,0 +1,19 @@
+// Styles for the docs app that are based on the current theme.
+@use "@angular/material" as mat;
+@use "./app/shared/header/header-theme";
+// @use "./app/shared/data-source-picker/data-source-picker";
+@use "./app/pages/homepage/homepage-theme";
+@use "./app/shared/footer/footer-theme";
+@use './app/pages/not-found/not-found-theme';
+@mixin theme($theme) {
+  .app-background {
+    background: mat.get-theme-color($theme, surface);
+  }
+  // @include svg-theme.theme($theme);
+  @include header-theme.theme($theme);
+  // @include data-source-picker.theme($theme);
+  @include homepage-theme.theme($theme);
+  @include footer-theme.theme($theme);
+  @include not-found-theme.theme($theme);
+
+}

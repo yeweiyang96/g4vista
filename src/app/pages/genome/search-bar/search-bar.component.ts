@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TabNameService } from './../../../shared/service/tab-name.service';
 import { SearchApiService } from '../../../shared/service/search-api.service';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
@@ -33,7 +32,6 @@ export class SearchBarComponent implements OnInit {
   private searchTerms = new Subject<string>();
   constructor(
     private apiService: SearchApiService,
-    private TabNameService: TabNameService,
     private Router: Router
   ) {}
   ngOnInit(): void {
@@ -60,7 +58,6 @@ export class SearchBarComponent implements OnInit {
   // }
 
   onClick(name: SearchResult) {
-    this.TabNameService.setName(name.abbreviation);
     this.Router.navigate(['/genome', name.abbreviation]);
   }
 }

@@ -6,12 +6,9 @@
   <div class="example-list">
     <span class="p">Try examples: </span>
     @for (example of examples; track $index) {
-      <a
-        mat-button
-        target="_blank"
-        [routerLink]="['/genome', example.abbreviation]"
-        >{{ example.name }}</a
-      >
+      <a mat-button [routerLink]="['/genome', example.abbreviation]">{{
+        example.name
+      }}</a>
     }
   </div>
   <mat-divider></mat-divider>

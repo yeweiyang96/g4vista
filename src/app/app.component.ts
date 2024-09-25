@@ -7,7 +7,7 @@ import { HeaderComponent } from './shared/header/header.component';
   imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
   title = 'g4vista';

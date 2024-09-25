@@ -17,6 +17,14 @@ export const routes: Routes = [
     title: 'Genome - G4Vista',
   },
   {
+    path: 'genome/:abbreviation',
+    loadComponent: () =>
+      import('./pages/genome/main/genome-page/genome-page.component').then(
+        m => m.GenomePageComponent
+      ),
+  },
+
+  {
     path: 'gene',
     loadComponent: () =>
       import('./pages/gene/gene.component').then(m => m.GeneComponent),

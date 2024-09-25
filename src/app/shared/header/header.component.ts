@@ -18,15 +18,14 @@ import { NgTemplateOutlet } from '@angular/common';
     NgTemplateOutlet,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnDestroy{
-
+export class HeaderComponent implements OnDestroy {
   private subscriptions = new Subscription();
 
   sections = [
     { name: 'Genome', route: '/genome' },
-    // { name: 'Gene', route: '/gene' },
+    { name: 'Gene', route: '/gene' },
     // { name: 'Phenotype', route: '/phenotype' },
     // { name: 'Environment', route: '/environment' },
   ];

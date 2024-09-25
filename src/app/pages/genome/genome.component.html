@@ -1,0 +1,19 @@
+<div class="main">
+  <h1 class="title">Genome</h1>
+  <p class="p">Search by taxonomic name or ID, Assembly name</p>
+
+  <app-search-bar class="search-bar"></app-search-bar>
+  <div class="example-list">
+    <span class="p">Try examples: </span>
+    @for (example of examples; track $index) {
+      <a
+        mat-button
+        target="_blank"
+        [routerLink]="['/genome', example.abbreviation]"
+        >{{ example.name }}</a
+      >
+    }
+  </div>
+  <mat-divider></mat-divider>
+  <section></section>
+</div>

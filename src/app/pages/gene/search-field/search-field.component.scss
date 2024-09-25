@@ -1,0 +1,14 @@
+.search-bar {
+  width: 100%;
+  display: flex;
+  // flex-wrap: wrap;
+}
+
+.search-genome {
+  flex: 1;
+}
+
+.search-gene {
+  flex: 1;
+  margin-left: 2rem;
+}

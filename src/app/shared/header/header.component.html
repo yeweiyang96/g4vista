@@ -1,9 +1,9 @@
 <nav class="shared-navbar-header" aria-label="Top Toolbar">
-  <a mat-button routerLink="/" aria-label="Angular Material">
+  <a mat-button routerLink="/" aria-label="Home">
     <app-logo matButtonIcon />
     G4 Vista
   </a>
-  @for (section of sections; track section) {
+  @for (section of sections; track $index) {
     <a
       mat-button
       class="shared-navbar-hide-small"
@@ -17,7 +17,7 @@
   <a
     mat-button
     class="shared-navbar-hide-small"
-    href="https://github.com"
+    href="https://github.com/yeweiyang96/g4vista"
     aria-label="GitHub Repository">
     <span matButtonIcon [ngTemplateOutlet]="githubIcon"></span>
     GitHub
@@ -25,7 +25,7 @@
   <a
     mat-icon-button
     class="shared-navbar-show-small"
-    href="https://github.com"
+    href="https://github.com/yeweiyang96/g4vista"
     aria-label="GitHub Repository">
     <ng-container [ngTemplateOutlet]="githubIcon" />
   </a>
@@ -33,7 +33,7 @@
 <nav
   class="shared-navbar shared-navbar-show-small"
   aria-label="Section Nav Bar">
-  @for (section of sections; track section) {
+  @for (section of sections; track $index) {
     <a mat-button class="shared-navbar-link" [routerLink]="section.route">{{
       section.name
     }}</a>

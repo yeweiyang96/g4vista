@@ -11,9 +11,6 @@
   }
 }
 
-.mat-mdc-icon-button {
-  color: inherit;
-}
 
 .github-logo,
 app-logo {
@@ -60,10 +57,3 @@ app-logo {
 
 }
 
-theme-picker {
-  display: none;
-
-  @media (min-width: 328px) {
-    display: block;
-  }
-}

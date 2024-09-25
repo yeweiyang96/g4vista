@@ -1,1 +1,42 @@
-<p>data-source-picker works!</p>
+<button
+  mat-button
+  class="shared-data-source-picker-trigger"
+  [mat-menu-trigger-for]="dataSourcePicker"
+  aria-label="Select a source"
+  matTooltip="Select a source for Data Source">
+  {{ currentDataSource?.displayName }}
+  <mat-icon>arrow_drop_down</mat-icon>
+</button>
+
+<mat-menu
+  #dataSourcePicker="matMenu"
+  xPosition="before"
+  class="shared-data-source-picker-menu">
+  @for (dataSource of dataSources; track dataSource) {
+    <button mat-menu-item (click)="switchDataSource(dataSource.name)">
+      <mat-icon
+        [color]="currentDataSource === dataSource ? 'accent' : undefined">
+        {{
+          currentDataSource === dataSource
+            ? 'radio_button_checked'
+            : 'radio_button_unchecked'
+        }}
+      </mat-icon>
+      <span>{{ dataSource.displayName }}</span>
+      <svg
+        matMenuItemIcon
+        class="theme-example-icon"
+        width="80"
+        height="80"
+        viewBox="0 0 80 80">
+        <path
+          [attr.fill]="dataSource.background"
+          d="M77.87 0C79.05 0 80 .95 80 2.13v75.74c0 1.17-.95 2.13-2.13 2.13H2.13C.96 80 0 79.04 0 77.87V2.13C0 .95.96 0 2.13 0h75.74z" />
+        <path
+          [attr.fill]="dataSource.color"
+          d="M54 40c3.32 0 6 2.69 6 6 0 1.2 0-1.2 0 0 0 3.31-2.68 6-6 6H26c-3.31 0-6-2.69-6-6 0-1.2 0 1.2 0 0 0-3.31 2.69-6 6-6h28z" />
+        <path [attr.fill]="dataSource.color" d="M0 0h80v17.24H0V0z" />
+      </svg>
+    </button>
+  }
+</mat-menu>

@@ -3,7 +3,7 @@
 @mixin theme($theme) {
   app-homepage {
     .docs-header-background {
-      background: mat.get-theme-color($theme, primary-container);
+      background: mat.get-theme-color($theme, primary-fixed-dim);
     }
 
     .docs-header-headline {
@@ -18,6 +18,6 @@
       color: mat.get-theme-color($theme, on-surface-variant);
     }
 
-    
+
   }
 }

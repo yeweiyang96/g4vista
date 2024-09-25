@@ -23,7 +23,7 @@ export class SearchApiService {
     }
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http.get<SearchResult[]>(
-      `${this.apiUrl}/${databaseName}/genome/?item=${search} `
+      `${this.apiUrl}/${databaseName}/genome?item=${search} `
     );
   }
   search_gene(search: string[]): Observable<string[]> {
@@ -34,7 +34,7 @@ export class SearchApiService {
     }
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http.get<string[]>(
-      `${this.apiUrl}/${databaseName}/gene/?genome=${search[0]},search=${search[1]} `
+      `${this.apiUrl}/${databaseName}/gene?genome=${search[0]},search=${search[1]} `
     );
   }
 }

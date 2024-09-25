@@ -21,15 +21,4 @@ export class GetGenomeService {
       `${this.apiUrl}/${databaseName}/genome/${abbreviation} `
     );
   }
-  search_gene(search: string[]): Observable<string[]> {
-    if (!search[1].trim()) {
-      return of([]);
-    } else if (search[1].length < 2) {
-      return of([]);
-    }
-    const databaseName = this.dataSourceStorageService.getStoredSource();
-    return this.http.get<string[]>(
-      `${this.apiUrl}/${databaseName}/gene/?genome=${search[0]},search=${search[1]} `
-    );
-  }
 }

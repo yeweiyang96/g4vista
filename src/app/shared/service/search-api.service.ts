@@ -34,7 +34,7 @@ export class SearchApiService {
     }
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http.get<string[]>(
-      `${this.apiUrl}/${databaseName}/gene?genome=${search[0]},search=${search[1]} `
+      `${this.apiUrl}/${databaseName}/gene/?genome=${search[0]},search=${search[1]} `
     );
   }
 }

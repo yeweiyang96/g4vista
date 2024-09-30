@@ -17,9 +17,8 @@ import { FooterComponent } from '../../shared/footer/footer.component';
     FooterComponent,
   ],
   templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+  styleUrl: './homepage.component.scss',
 })
 export class HomepageComponent {
   @HostBinding('class.main-content') readonly mainContentClass = true;
-
 }

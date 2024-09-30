@@ -19,7 +19,7 @@ export const routes: Routes = [
   {
     path: 'genome/:abbreviation',
     loadComponent: () =>
-      import('./pages/genome/main/genome-page/genome-page.component').then(
+      import('./pages/genome/genome-page/genome-page.component').then(
         m => m.GenomePageComponent
       ),
   },

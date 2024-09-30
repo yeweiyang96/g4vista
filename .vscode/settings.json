@@ -19,7 +19,8 @@
   "editor.inlineSuggest.enabled": true,
   "workbench.colorTheme": "One Dark Pro Darker",
   "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
-  "workbench.preferredLightColorTheme": "Quiet Light"
+  "workbench.preferredDarkColorTheme": "Default Dark Modern",
+  "workbench.preferredLightColorTheme": "Quiet Light",
+  "git.ignoreLimitWarning": true
 }
 

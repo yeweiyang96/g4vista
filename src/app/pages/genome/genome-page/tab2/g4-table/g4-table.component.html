@@ -1,0 +1,55 @@
+<button nz-button (click)="scrollToIndex(200)">Scroll To Index 200</button>
+<br />
+<br />
+
+<nz-table
+  #virtualTable
+  [nzBordered]="true"
+  [nzVirtualItemSize]="20"
+  [nzData]="listOfData"
+  [nzLoading]="loading"
+  [nzVirtualForTrackBy]="trackByIndex"
+  [nzFrontPagination]="false"
+  [nzShowPagination]="false"
+  [nzScroll]="{ x: '1200px', y: '50vh' }"
+  class="table-viewport">
+  <thead>
+    <tr>
+      <!-- <th nzLeft>name</th> -->
+      <!-- <th nzLeft>seqname</th> -->
+      <th nzLeft>Start</th>
+      <!-- <th>T2</th> -->
+      <!-- <th>T3</th> -->
+      <th>End</th>
+      <th>Number of tetrads</th>
+      <th>G-Score</th>
+      <th>SEQ</th>
+      <th>gene</th>
+      <th nzRight>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template nz-virtual-scroll let-data let-index="index">
+      <tr>
+        <!-- <td nzLeft>{{ data.name }}</td> -->
+        <!-- <td nzLeft>{{ data.seqname }}</td> -->
+        <td nzLeft>{{ data.T1 }}</td>
+        <!-- <td>{{ data.T2 }}</td> -->
+        <!-- <td>{{ data.T3 }}</td> -->
+        <td>{{ data.T4 + data.TS }}</td>
+        <td>{{ data.TS }}</td>
+        <td>{{ data.GS }}</td>
+        <td nzBreakWord>
+          <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
+          <span>{{ data.SEQ | slice: data.TS : -data.TS }}</span>
+          <span class="highlight">{{ data.SEQ | slice: -data.TS }}</span>
+        </td>
+        <td>{{ data.gene }}</td>
+        <td nzRight>
+          <a>action</a>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>
+<!-- <button mat-raised-button color="primary" (click)="g4()">show</button> -->

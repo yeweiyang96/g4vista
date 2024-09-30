@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { DataSourceStorageService } from '../../../../shared/service/data-source-storage.service';
-import { Observable, of } from 'rxjs';
-import { GenomeInfo } from './Genome';
+import { DataSourceStorageService } from '../../../shared/service/data-source-storage.service';
+import { Observable } from 'rxjs';
+import { GenomeInfo } from '../Genome';
 @Injectable({
   providedIn: 'root',
 })

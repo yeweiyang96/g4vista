@@ -4,44 +4,78 @@ import {
   createViewState,
   JBrowseLinearGenomeView,
 } from '@jbrowse/react-linear-genome-view'
-
-import assembly from './assembly'
-import tracks from './tracks'
-import defaultSession from './defaultSession'
+import { onStateChange } from './jbrowse.service'
+import { G4GTrack,G4CTrack,GeneTrack }  from './jbrowse.config'
+import defaultSession  from './defaultSession'
 
 type ViewModel = ReturnType<typeof createViewState>
+interface ViewProps {
+  assemblyName: string;
+  locString: string;
+}
 
-function View(message: object) {
+const url: string = 'https://g4vista-api.med.niigata-u.ac.jp/jbrowse/';
+
+const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
   const [viewState, setViewState] = useState<ViewModel>()
-  const [patches, setPatches] = useState('')
-  const [stateSnapshot, setStateSnapshot] = useState('')
+  // const [patches, setPatches] = useState('')
+  // const [stateSnapshot, setStateSnapshot] = useState('')
+  const [text, setStateLocal] = useState(null)
+
+  const assembly = {
+    name: assemblyName,
+    sequence: {
+      type: 'ReferenceSequenceTrack',
+      trackId: 'ReferenceSequenceTrack',
+      adapter: {
+        type: 'BgzipFastaAdapter',
+        fastaLocation: {
+          uri: url + assemblyName + '/' + assemblyName + '.fa.gz',
+        },
+        faiLocation: {
+          uri: url + assemblyName + '/' + assemblyName + '.fa.gz.fai',
+        },
+        gziLocation: {
+          uri: url + assemblyName + '/' + assemblyName + '.fa.gz.gzi',
+        },
+      },
+    }}
+
+  const tracks = [new G4GTrack(assemblyName),new G4CTrack(assemblyName),new GeneTrack(assemblyName)]
+
+
 
   useEffect(() => {
+    const subscription = onStateChange((newState) => {
+      setStateLocal(newState);
+    });
     const state = createViewState({
       assembly,
       tracks,
       defaultSession,
+      plugins: [],
+      location: locString,
 
-      onChange: patch => {
-        setPatches(previous => previous + JSON.stringify(patch) + '\n')
-      },
+      // onChange: patch => {
+      //   setPatches(previous => previous + JSON.stringify(patch) + '\n')
+      // },
       configuration: {
         rpc: {
           defaultDriver: 'WebWorkerRpcDriver',
         },
-        "theme" :{
-          "palette": {
-            "primary": {
-              "main": "#005cbb"
+        theme :{
+          palette: {
+            primary: {
+              main: "#00cc99"
             },
-            "secondary": {
-              "main": "#005cbb"
+            secondary: {
+              main: "#00cc99"
             },
-            "tertiary": {
-              "main": "#d7e3ff"
+            tertiary: {
+              main: "#d7e3ff"
             },
-            "quaternary": {
-              "main": "#005cbb"
+            quaternary: {
+              main: "#00cc99"
             }
           }
         },
@@ -56,34 +90,26 @@ function View(message: object) {
       createRootFn: createRoot,
     })
     setViewState(state)
+    // 清理订阅
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [])
 
   if (!viewState) {
     return null
   }
-  if (location) {
-    console.log('location', location);
-    // viewState.session.view.navToLocations([location]);
+  if (locString) {
+    console.log('location:', locString);
+    viewState.session.view.navToLocString(locString);
     // viewState.session.view.addToHighlights( location as Required<ParsedLocString>);
   }
 
   return (
     <React.StrictMode>
-      <h1>JBrowse 2 React Linear Genome View Demo w/ vite</h1>
       <JBrowseLinearGenomeView viewState={viewState} />
-      <h3>Code</h3>
-      <p>
-        The code for this app is available at{' '}
-        <a
-          href="https://github.com/GMOD/jbrowse-react-linear-genome-view-vite-demo"
-          target="_blank"
-          rel="noreferrer"
-        >
-          https://github.com/GMOD/jbrowse-react-linear-genome-view-vite-demo
-        </a>
-        .
-      </p>
-      <h3>Control the view</h3>
+
+      {/* <h3>Control the view</h3>
       <div>
         <p>
           This is an example of controlling the view from other elements on the
@@ -120,8 +146,8 @@ function View(message: object) {
         >
           Show session
         </button>
-      </div>
-      <textarea value={stateSnapshot} readOnly rows={20} cols={80} />
+      </div> */}
+      {/* <textarea value={stateSnapshot} readOnly rows={20} cols={80} />
       <h3>React to the view</h3>
       <p>
         Using <code>onChange</code> in <code>createViewState</code>, you can
@@ -132,7 +158,8 @@ function View(message: object) {
         </a>
         . The patches for the component on this page are shown below.
       </p>
-      <textarea value={patches} readOnly rows={5} cols={80} wrap="off" />
+      <textarea value={patches} readOnly rows={5} cols={80} wrap="off" /> */}
+      <div>Shared State: {text}</div>
       </React.StrictMode>
   )
 }

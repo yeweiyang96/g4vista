@@ -9,8 +9,8 @@
     <mat-tab label="G4 Data">
       <ng-template matTabContent>
         <app-jbrowse
-          [genome]="this.data.genome"
-          [location]="this.location"></app-jbrowse>
+          [abbreviation]="this.abbreviation"
+          [locString]="this.locString"></app-jbrowse>
         <app-g4-table></app-g4-table>
       </ng-template>
     </mat-tab>

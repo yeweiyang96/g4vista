@@ -10,6 +10,7 @@ import { G4_MBGD } from '../../../Genome';
 import { Subject, takeUntil } from 'rxjs';
 import { GetG4Service } from './get-g4-data-api.service';
 import { SlicePipe } from '@angular/common';
+import { JbrowseService } from '../jbrowse/jbrowse.service';
 
 @Component({
   selector: 'app-g4-table',
@@ -25,7 +26,10 @@ export class G4TableComponent implements OnInit, AfterViewInit, OnDestroy {
   listOfData: G4_MBGD[] = [];
   loading = true;
 
-  constructor(private getG4DataService: GetG4Service) {}
+  constructor(
+    private getG4DataService: GetG4Service,
+    private jbrowseService: JbrowseService
+  ) {}
 
   scrollToIndex(index: number): void {
     this.nzTableComponent?.cdkVirtualScrollViewport?.scrollToIndex(index);
@@ -35,12 +39,17 @@ export class G4TableComponent implements OnInit, AfterViewInit, OnDestroy {
     return data.T1;
   }
 
+  onClick() {
+    this.jbrowseService.setState('bbb');
+  }
+
   ngOnInit(): void {
     this.getG4DataService
       .getG4Data('aaa', 'chromosome-1-1', 'c')
       .subscribe(data => {
         this.listOfData = data;
         this.loading = false;
+        this.jbrowseService.setState('aaa');
       });
   }
 

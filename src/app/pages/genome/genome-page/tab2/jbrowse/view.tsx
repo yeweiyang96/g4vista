@@ -52,7 +52,7 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
     const state = createViewState({
       assembly,
       tracks,
-      defaultSession,
+      // defaultSession,
       plugins: [],
       location: locString,
 
@@ -60,9 +60,9 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
       //   setPatches(previous => previous + JSON.stringify(patch) + '\n')
       // },
       configuration: {
-        rpc: {
-          defaultDriver: 'WebWorkerRpcDriver',
-        },
+        // rpc: {
+        //   defaultDriver: 'WebWorkerRpcDriver',
+        // },
         theme :{
           palette: {
             primary: {
@@ -80,15 +80,20 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
           }
         },
       },
-      makeWorkerInstance: () => {
-        return new Worker(new URL('./rpc-worker.worker', import.meta.url), {
-          type: 'module',
-        })
-      },
+      // makeWorkerInstance: () => {
+      //   return new Worker(new URL('./rpc-worker.worker', import.meta.url), {
+      //     type: 'module',
+      //   })
+      // },
 
       hydrateFn: hydrateRoot,
       createRootFn: createRoot,
     })
+    state.session.view.showTrack('ReferenceSequenceTrack')
+    // state.session.view.showTrack('g4_c')
+    state.session.view.showTrack('g4_g')
+    state.session.view.showTrack('genes')
+
     setViewState(state)
     // 清理订阅
     return () => {

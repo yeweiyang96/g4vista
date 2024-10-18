@@ -35,7 +35,7 @@ export class GenomePageComponent implements OnInit {
       .subscribe((data: GenomeInfo) => {
         this.titleService.setTitle(data.genome);
         this.data = data;
-        this.locString = '';
+        this.locString = 'chromosome-1-1:2..1,000';
       });
   }
 }

@@ -5,8 +5,9 @@ import {
   JBrowseLinearGenomeView,
 } from '@jbrowse/react-linear-genome-view'
 import { onStateChange } from './jbrowse.service'
-import { G4GTrack,G4CTrack,GeneTrack }  from './jbrowse.config'
-import defaultSession  from './defaultSession'
+// import { G4GTrack,G4CTrack,GeneTrack }  from './jbrowse.config'
+// import defaultSession  from './defaultSession'
+import config from './config'
 
 type ViewModel = ReturnType<typeof createViewState>
 interface ViewProps {
@@ -40,8 +41,9 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
         },
       },
     }}
-
-  const tracks = [new G4GTrack(assemblyName),new G4CTrack(assemblyName),new GeneTrack(assemblyName)]
+    // track.assemblyNames = [assemblyName]
+    // track.adapter.gffGzLocation = url + assemblyName + '/' + assemblyName + '_g.gff.gz'
+    // track.adapter.index.location = track.adapter.gffGzLocation + '.tbi'
 
 
 
@@ -50,8 +52,41 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
       setStateLocal(newState);
     });
     const state = createViewState({
+
       assembly,
-      tracks,
+      tracks:[
+        {
+          type: 'FeatureTrack',
+          trackId: 'g4_g',
+          name: 'G-Rich Sequences',
+          assemblyNames: [assemblyName],
+          adapter: {
+            type: 'Gff3TabixAdapter',
+            gffGzLocation: {uri: 'https://g4vista-api.med.niigata-u.ac.jp/jbrowse/aaa/aaa_g.gff.gz'},
+            index: {
+              location: {uri:'https://g4vista-api.med.niigata-u.ac.jp/jbrowse/aaa/aaa_g.gff.gz.tbi'},
+              indexType: 'TBI'
+            },
+          },
+          displays: [
+            {
+              id: 'g4g',
+              displayId: 'g4_g-LinearBasicDisplay',
+              type: 'LinearBasicDisplay',
+              configuration: 'g4_g-LinearBasicDisplay',
+              renderer: {
+                type: 'SvgFeatureRenderer',
+                color1:
+                  "jexl: cast({ T1_G_Rich: '#388E3C', T2_G_Rich: '#43A047', T3_G_Rich: '#4CAF50', T4_G_Rich: '#66BB6A'})[get(feature, 'type')]",
+                color2: 'blue',
+                color3: '#DEA3DA',
+              },
+            },
+          ],
+
+
+        }
+      ],
       // defaultSession,
       plugins: [],
       location: locString,
@@ -60,9 +95,9 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
       //   setPatches(previous => previous + JSON.stringify(patch) + '\n')
       // },
       configuration: {
-        // rpc: {
-        //   defaultDriver: 'WebWorkerRpcDriver',
-        // },
+        rpc: {
+          defaultDriver: 'WebWorkerRpcDriver',
+        },
         theme :{
           palette: {
             primary: {
@@ -80,19 +115,18 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
           }
         },
       },
-      // makeWorkerInstance: () => {
-      //   return new Worker(new URL('./rpc-worker.worker', import.meta.url), {
-      //     type: 'module',
-      //   })
-      // },
-
       hydrateFn: hydrateRoot,
       createRootFn: createRoot,
+      makeWorkerInstance: () => {
+        return new Worker(new URL('./rpc-worker.worker', import.meta.url), {
+          type: 'module',
+        })
+      },
     })
     state.session.view.showTrack('ReferenceSequenceTrack')
     // state.session.view.showTrack('g4_c')
     state.session.view.showTrack('g4_g')
-    state.session.view.showTrack('genes')
+    // state.session.view.showTrack('genes')
 
     setViewState(state)
     // 清理订阅
@@ -101,14 +135,16 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
     };
   }, [])
 
+
   if (!viewState) {
     return null
   }
-  if (locString) {
-    console.log('location:', locString);
-    viewState.session.view.navToLocString(locString);
-    // viewState.session.view.addToHighlights( location as Required<ParsedLocString>);
-  }
+  // if (locString) {
+  //   console.log('location:', locString);
+  //   viewState.session.view.navToLocString(locString);
+  //   // viewState.session.view.addToHighlights( location as Required<ParsedLocString>);
+  // }
+
 
   return (
     <React.StrictMode>
@@ -164,7 +200,7 @@ const View: React.FC<ViewProps> = ({assemblyName,locString}) => {
         . The patches for the component on this page are shown below.
       </p>
       <textarea value={patches} readOnly rows={5} cols={80} wrap="off" /> */}
-      <div>Shared State: {text}</div>
+
       </React.StrictMode>
   )
 }

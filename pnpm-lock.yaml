@@ -41,6 +41,15 @@ importers:
       '@angular/router':
         specifier: ^18.2.8
         version: 18.2.8(@angular/common@18.2.8(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10))(@angular/platform-browser@18.2.8(@angular/animations@18.2.8(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10)))(@angular/common@18.2.8(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10)))(rxjs@7.8.1)
+      '@fontsource/roboto':
+        specifier: ^5.0.3
+        version: 5.1.0
+      '@jbrowse/core':
+        specifier: ^2.0.0
+        version: 2.15.4(wbww7nltghxiagrxjgqpjzhkda)
+      '@jbrowse/product-core':
+        specifier: ^2.15.4
+        version: 2.15.4(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react@18.3.1))(@mui/system@6.1.4(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(mobx-react@9.1.1(mobx@6.13.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(mobx-state-tree@5.4.2(mobx@6.13.5))(mobx@6.13.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rxjs@7.8.1)(tss-react@4.9.13(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@mui/material@6.1.4(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1))
       '@jbrowse/react-linear-genome-view':
         specifier: ^2.0.0
         version: 2.15.4(@mui/system@6.1.4(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.3(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(react@18.3.1))(@types/react@18.3.11)(buffer@6.0.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1410,6 +1419,9 @@ packages:
 
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
+
+  '@fontsource/roboto@5.1.0':
+    resolution: {integrity: sha512-cFRRC1s6RqPygeZ8Uw/acwVHqih8Czjt6Q0MwoUoDe9U3m4dH1HmNDRBZyqlMSFwgNAUKgFImncKdmDHyKpwdg==}
 
   '@gmod/abortable-promise-cache@2.0.1':
     resolution: {integrity: sha512-6PQTJv+uxAb8XE/oL2Uh4EmFJpn65YOTSqGn8HLNXrWRlW1Clp1Oze6biHeRCMonLwEx4oH4bPeyjdcMnNP8pw==}
@@ -7306,6 +7318,8 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.8': {}
+
+  '@fontsource/roboto@5.1.0': {}
 
   '@gmod/abortable-promise-cache@2.0.1': {}
 

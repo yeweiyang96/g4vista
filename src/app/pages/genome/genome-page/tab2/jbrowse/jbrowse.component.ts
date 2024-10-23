@@ -12,11 +12,10 @@ import { createElement } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 import View from './view';
 const containerElementName = 'jbrowse_linear_genome_view';
-import { ReactComponentDirective } from './jbrowse.directive';
 @Component({
   selector: 'app-jbrowse',
   standalone: true,
-  imports: [ReactComponentDirective],
+  imports: [],
   templateUrl: './jbrowse.component.html',
   styleUrl: './jbrowse.component.scss',
 })
@@ -52,7 +51,7 @@ export class JbrowseComponent implements OnChanges, AfterViewInit, OnDestroy {
       this.root = createRoot(this.containerRef.nativeElement);
     }
     console.log('render:', this.abbreviation);
-    this.abbreviation = 'aaa';
+
     this.root.render(
       createElement(View, {
         locString: this.locString,

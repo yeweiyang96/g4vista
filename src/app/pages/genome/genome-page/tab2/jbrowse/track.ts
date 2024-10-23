@@ -66,6 +66,7 @@ export class G4GTrack {
       color1: string;
       color2: string;
       color3: string;
+      displayMode: string;
     };
   }[];
   constructor(name: string) {
@@ -76,11 +77,12 @@ export class G4GTrack {
     this.adapter = new Gff3TabixAdapter(url + name + '/' + name + '_g.gff.gz');
     this.displays = [
       {
-        id: 'imlg',
+        id: 'g4g',
         displayId: 'g4_g-LinearBasicDisplay',
         type: 'LinearBasicDisplay',
         configuration: 'g4_g-LinearBasicDisplay',
         renderer: {
+          displayMode: 'collapse',
           type: 'SvgFeatureRenderer',
           color1:
             "jexl: cast({ T1_G_Rich: '#388E3C', T2_G_Rich: '#43A047', T3_G_Rich: '#4CAF50', T4_G_Rich: '#66BB6A'})[get(feature, 'type')]",
@@ -107,6 +109,7 @@ export class G4CTrack {
       color1: string;
       color2: string;
       color3: string;
+      displayMode: string;
     };
   }[];
   constructor(name: string) {
@@ -117,7 +120,7 @@ export class G4CTrack {
     this.adapter = new Gff3TabixAdapter(url + name + '/' + name + '_c.gff.gz');
     this.displays = [
       {
-        id: 'imlosc',
+        id: 'g4c',
         displayId: 'g4_c-LinearBasicDisplay',
         type: 'LinearBasicDisplay',
         configuration: 'g4_c-LinearBasicDisplay',
@@ -127,6 +130,7 @@ export class G4CTrack {
             "jexl: cast({ T1_C_Rich: '#FFA000', T2_C_Rich: '#FFB300', T3_C_Rich: '#FFC107', T4_C_Rich: '#FFCA28' })[get(feature, 'type')]",
           color2: 'blue',
           color3: '#DEA3DA',
+          displayMode: 'collapse',
         },
       },
     ];

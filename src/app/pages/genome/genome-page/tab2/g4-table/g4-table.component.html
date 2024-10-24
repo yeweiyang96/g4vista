@@ -1,4 +1,32 @@
 <button nz-button (click)="scrollToIndex(200)">Scroll To Index 200</button>
+<!-- <button
+  (click)="isOpen = !isOpen"
+  type="button"
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin">
+  {{ isOpen ? 'Close' : 'Open' }}
+</button> -->
+
+<!-- This template displays the overlay content and is connected to the button -->
+<!-- <ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="isOpen">
+  <div class="example-box" cdkDrag>
+    <app-jbrowse
+      [abbreviation]="this.abbreviation"
+      [locString]="this.locString"></app-jbrowse>
+
+    <div class="example-handle" cdkDragHandle>
+      <svg width="24px" fill="none" viewBox="0 0 24 24">
+        <path
+          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+      </svg>
+    </div>
+  </div>
+</ng-template> -->
+
 <br />
 <br />
 
@@ -25,7 +53,6 @@
       <th>G-Score</th>
       <th>SEQ</th>
       <th>gene</th>
-      <th nzRight>Action</th>
     </tr>
   </thead>
   <tbody>
@@ -40,14 +67,13 @@
         <td>{{ data.TS }}</td>
         <td>{{ data.GS }}</td>
         <td nzBreakWord>
-          <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
-          <span>{{ data.SEQ | slice: data.TS : -data.TS }}</span>
-          <span class="highlight">{{ data.SEQ | slice: -data.TS }}</span>
+          <a (click)="this.onClick(data.T1 + '..' + (data.T4 + data.TS))">
+            <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
+            <span>{{ data.SEQ | slice: data.TS : -data.TS }}</span>
+            <span class="highlight">{{ data.SEQ | slice: -data.TS }}</span>
+          </a>
         </td>
         <td>{{ data.gene }}</td>
-        <td nzRight>
-          <button (click)="this.onClick()">action</button>
-        </td>
       </tr>
     </ng-template>
   </tbody>

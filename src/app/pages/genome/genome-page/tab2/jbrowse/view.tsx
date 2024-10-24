@@ -19,7 +19,7 @@ const url: string = 'https://g4vista-api.med.niigata-u.ac.jp/jbrowse/';
 
 const View: React.FC<ViewProps> = ({ assemblyName, locString }) => {
   const [viewState, setViewState] = useState<ViewModel>()
-
+  const [text, setStateLocal] = useState(null)
   const assembly = {
     name: assemblyName,
     sequence: {
@@ -42,9 +42,7 @@ const View: React.FC<ViewProps> = ({ assemblyName, locString }) => {
 
 
   useEffect(() => {
-    // const subscription = onStateChange((newState) => {
-    //   setStateLocal(newState);
-    // });
+
     const state = createViewState({
       assembly,
       tracks,
@@ -90,10 +88,13 @@ const View: React.FC<ViewProps> = ({ assemblyName, locString }) => {
     state.session.view.showTrack('genes')
 
     setViewState(state)
+    const subscription = onStateChange((locString) => {
+      state.session.view.navToLocString(locString);
+    });
     // 清理订阅
-    // return () => {
-    //   subscription.unsubscribe();
-    // };
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [])
 
   if (!viewState) {

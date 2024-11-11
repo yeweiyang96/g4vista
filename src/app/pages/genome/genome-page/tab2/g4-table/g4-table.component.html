@@ -67,7 +67,12 @@
         <td>{{ data.TS }}</td>
         <td>{{ data.GS }}</td>
         <td nzBreakWord>
-          <a (click)="this.onClick(data.T1 + '..' + (data.T4 + data.TS))">
+          <a
+            (click)="this.onClick(data.T1 + '..' + (data.T4 + data.TS))"
+            tabindex="0"
+            (keydown.enter)="
+              this.onClick(data.T1 + '..' + (data.T4 + data.TS))
+            ">
             <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
             <span>{{ data.SEQ | slice: data.TS : -data.TS }}</span>
             <span class="highlight">{{ data.SEQ | slice: -data.TS }}</span>

@@ -6,7 +6,7 @@ import {
 } from '@jbrowse/react-linear-genome-view'
 import { onStateChange } from './jbrowse.service'
 import { G4GTrack,G4CTrack,GeneTrack }  from './track'
-
+import TestPlugin  from 'jbrowse-plugin-linkout'
 
 
 type ViewModel = ReturnType<typeof createViewState>
@@ -38,16 +38,18 @@ const View: React.FC<ViewProps> = ({ assemblyName, locString }) => {
         },
       },
     }};
-    const tracks = [new G4CTrack(assemblyName), new G4GTrack(assemblyName), new GeneTrack(assemblyName)];
+
+
+
+  const tracks = [new G4CTrack(assemblyName), new G4GTrack(assemblyName), new GeneTrack(assemblyName)];
 
 
   useEffect(() => {
-
     const state = createViewState({
       assembly,
       tracks,
-      plugins: [],
-      location: locString,
+      plugins: [TestPlugin],
+      // location: locString,
 
       // onChange: patch => {
       //   setPatches(previous => previous + JSON.stringify(patch) + '\n')

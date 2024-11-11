@@ -13,20 +13,11 @@ import { GetG4Service } from './get-g4-data-api.service';
 import { SlicePipe } from '@angular/common';
 import { JbrowseService } from '../jbrowse/jbrowse.service';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { JbrowseComponent } from '../jbrowse/jbrowse.component';
-import { CdkDrag, CdkDragHandle } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-g4-table',
   standalone: true,
-  imports: [
-    NzTableModule,
-    SlicePipe,
-    OverlayModule,
-    JbrowseComponent,
-    CdkDrag,
-    CdkDragHandle,
-  ],
+  imports: [NzTableModule, SlicePipe, OverlayModule],
   templateUrl: './g4-table.component.html',
   styleUrl: './g4-table.component.scss',
 })
@@ -62,7 +53,7 @@ export class G4TableComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.getG4DataService
-      .getG4Data(this.abbreviation, 'chromosome-1-1', 'g')
+      .getG4Data(this.abbreviation, 'chromosome-5-215', 'g')
       .subscribe(data => {
         this.listOfData = data;
         this.loading = false;

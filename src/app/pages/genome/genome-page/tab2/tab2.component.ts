@@ -25,8 +25,8 @@ export class Tab2Component implements AfterViewInit, OnDestroy {
   private _overlay = inject(Overlay);
   private _viewContainerRef = inject(ViewContainerRef);
   @Input() abbreviation = '';
-  locString = 'chromosome-1-1:2..1,000';
-  @ViewChild(TemplateRef) _dialogTemplate!: TemplateRef<any>;
+  locString = 'chromosome-5-215:2..1,000';
+  @ViewChild(TemplateRef) _dialogTemplate!: TemplateRef<unknown>;
   private _overlayRef!: OverlayRef;
   private _portal!: TemplatePortal;
   isOpen = false;

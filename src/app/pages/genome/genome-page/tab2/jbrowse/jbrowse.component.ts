@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   OnChanges,
   OnDestroy,
@@ -19,7 +18,7 @@ const containerElementName = 'jbrowse_linear_genome_view';
   templateUrl: './jbrowse.component.html',
   styleUrl: './jbrowse.component.scss',
 })
-export class JbrowseComponent implements OnChanges, AfterViewInit, OnDestroy {
+export class JbrowseComponent implements OnChanges, OnDestroy {
   path = View;
 
   constructor() {}
@@ -37,10 +36,10 @@ export class JbrowseComponent implements OnChanges, AfterViewInit, OnDestroy {
     this.render();
   }
 
-  ngAfterViewInit(): void {
-    console.log('after');
-    // this.render();
-  }
+  // ngAfterViewInit(): void {
+  //   console.log('after');
+  //   this.render();
+  // }
   ngOnDestroy(): void {
     console.log('destroy');
     this.root.unmount();

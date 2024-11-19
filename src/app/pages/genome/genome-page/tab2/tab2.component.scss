@@ -1,6 +1,4 @@
 .example-dialog-content {
-  width: 990px;
-  height: 545px;
   border: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   cursor: move;
@@ -31,4 +29,14 @@
   cursor: move;
   width: 95%;
   height: 32px;
+}
+
+.button-container {
+  // display: flex;
+  // justify-content: center;
+  // width: 100%;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
 }

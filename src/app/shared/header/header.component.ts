@@ -24,10 +24,9 @@ export class HeaderComponent implements OnDestroy {
   private subscriptions = new Subscription();
 
   sections = [
-    { name: 'Genome', route: '/genome' },
+    { name: 'Species', route: '/genome' },
     { name: 'Gene', route: '/gene' },
-    // { name: 'Phenotype', route: '/phenotype' },
-    // { name: 'Environment', route: '/environment' },
+    { name: 'Environment', route: '/environment' },
   ];
 
   constructor() {}

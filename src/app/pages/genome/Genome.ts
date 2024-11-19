@@ -1,5 +1,7 @@
 export interface GenomeInfo {
   genome: string;
+  chromosomes: string[];
+  description: string;
 }
 
 export interface G4_MBGD {

@@ -5,14 +5,12 @@ import { Title } from '@angular/platform-browser';
 import { GenomeInfo } from '../Genome';
 import { Observable } from 'rxjs';
 // import { ParsedLocString } from '@jbrowse/core/util';
-import { G4TableComponent } from './tab2/g4-table/g4-table.component';
-import { JbrowseComponent } from './tab2/jbrowse/jbrowse.component';
 import { Tab2Component } from './tab2/tab2.component';
 
 @Component({
   selector: 'app-genome-page',
   standalone: true,
-  imports: [MatTabsModule, G4TableComponent, JbrowseComponent, Tab2Component],
+  imports: [MatTabsModule, Tab2Component],
   templateUrl: './genome-page.component.html',
   styleUrl: './genome-page.component.scss',
 })
@@ -20,16 +18,19 @@ export class GenomePageComponent implements OnInit {
   @HostBinding('class.main-content') readonly mainContentClass = true;
   @Input() abbreviation = '';
   genomeData$!: Observable<GenomeInfo>;
-  data: GenomeInfo = { genome: 'Loading...' };
+  data: GenomeInfo = {
+    genome: 'Loading...',
+    chromosomes: [],
+    description: 'Loading...',
+  };
 
   constructor(
     private titleService: Title,
     private getGenomeService: GetGenomeService
-  ) {
-    console.log('GenomePageComponent.constructor');
-  }
+  ) {}
+
   ngOnInit(): void {
-    console.log('GenomePageComponent.ngOnInit');
+    // get genome data file ()
     this.getGenomeService
       .get_genome(this.abbreviation)
       .subscribe((data: GenomeInfo) => {

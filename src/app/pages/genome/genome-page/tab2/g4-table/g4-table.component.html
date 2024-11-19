@@ -1,31 +1,4 @@
 <button nz-button (click)="scrollToIndex(200)">Scroll To Index 200</button>
-<!-- <button
-  (click)="isOpen = !isOpen"
-  type="button"
-  cdkOverlayOrigin
-  #trigger="cdkOverlayOrigin">
-  {{ isOpen ? 'Close' : 'Open' }}
-</button> -->
-
-<!-- This template displays the overlay content and is connected to the button -->
-<!-- <ng-template
-  cdkConnectedOverlay
-  [cdkConnectedOverlayOrigin]="trigger"
-  [cdkConnectedOverlayOpen]="isOpen">
-  <div class="example-box" cdkDrag>
-    <app-jbrowse
-      [abbreviation]="this.abbreviation"
-      [locString]="this.locString"></app-jbrowse>
-
-    <div class="example-handle" cdkDragHandle>
-      <svg width="24px" fill="none" viewBox="0 0 24 24">
-        <path
-          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-        <path d="M0 0h24v24H0z" fill="none"></path>
-      </svg>
-    </div>
-  </div>
-</ng-template> -->
 
 <br />
 <br />
@@ -34,12 +7,12 @@
   #virtualTable
   [nzBordered]="true"
   [nzVirtualItemSize]="20"
-  [nzData]="listOfData"
+  [nzData]="listOfDisplayData"
   [nzLoading]="loading"
   [nzVirtualForTrackBy]="trackByIndex"
   [nzFrontPagination]="false"
   [nzShowPagination]="false"
-  [nzScroll]="{ x: '1200px', y: '50vh' }"
+  [nzScroll]="{ x: '100vw', y: '70vh' }"
   class="table-viewport">
   <thead>
     <tr>
@@ -52,7 +25,15 @@
       <th>Number of tetrads</th>
       <th>G-Score</th>
       <th>SEQ</th>
-      <th>gene</th>
+      <th nzCustomFilter>
+        gene
+        <nz-filter-trigger
+          [(nzVisible)]="visible"
+          [nzActive]="searchValue.length > 0"
+          [nzDropdownMenu]="menu">
+          <span nz-icon nzType="search"></span>
+        </nz-filter-trigger>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -83,4 +64,24 @@
     </ng-template>
   </tbody>
 </nz-table>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <div class="ant-table-filter-dropdown">
+    <div class="search-box">
+      <input
+        type="text"
+        nz-input
+        placeholder="Search gene"
+        [(ngModel)]="searchValue" />
+      <button
+        nz-button
+        nzSize="small"
+        nzType="primary"
+        (click)="search()"
+        class="search-button">
+        Search
+      </button>
+      <button nz-button nzSize="small" (click)="reset()">Reset</button>
+    </div>
+  </div>
+</nz-dropdown-menu>
 <!-- <button mat-raised-button color="primary" (click)="g4()">show</button> -->

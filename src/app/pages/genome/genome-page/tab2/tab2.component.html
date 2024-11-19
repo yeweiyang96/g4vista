@@ -1,21 +1,25 @@
-<button (click)="openDialog((isOpen = !isOpen))">
-  {{ isOpen ? 'Close' : 'Open' }}
-</button>
+<div class="button-container">
+  <button mat-fab extended (click)="openDialog((isOpen = !isOpen))">
+    <mat-icon>
+      {{ isOpen ? 'visibility_off' : 'visibility' }}
+    </mat-icon>
+    Jbrowse
+  </button>
+</div>
+
+<app-chart></app-chart>
 
 <ng-template>
   <div
     class="example-dialog-content"
     cdkDrag
-    cdkDragRootElement=".cdk-overlay-pane">
+    cdkDragRootElement=".cdk-overlay-pane"
+    [ngStyle]="{ display: isOpen ? 'flex' : 'none' }">
     <app-jbrowse
       [abbreviation]="this.abbreviation"
       [locString]="this.locString"></app-jbrowse>
     <div class="example-handle" cdkDragHandle>
-      <svg height="32px" fill="none" viewBox="0 0 24 24">
-        <path
-          d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
-        <path d="M0 0h24v24H0z" fill="none"></path>
-      </svg>
+      <svg height="32px" fill="none" viewBox="0 0 24 24"></svg>
     </div>
   </div>
 </ng-template>

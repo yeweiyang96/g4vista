@@ -24,13 +24,17 @@
     "@angular/router": "^18.2.10",
     "@jbrowse/react-linear-genome-view": "^2.16.0",
     "@types/node": "^20.17.5",
+    "apache-arrow": "^18.0.0",
     "jbrowse-plugin-linkout": "^0.2.2",
     "ng-zorro-antd": "^18.1.1",
     "papaparse": "^5.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rxjs": "~7.8.1",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "vega": "^5.30.0",
+    "vega-embed": "^6.29.0",
+    "vega-lite": "^5.21.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.11",
@@ -63,5 +67,6 @@
   },
   "resolutions": {
     "@mui/icons-material": "6.0.2"
-  }
+  },
+  "packageManager": "pnpm@9.14.2+sha512.6e2baf77d06b9362294152c851c4f278ede37ab1eba3a55fda317a4a17b209f4dbb973fb250a77abc463a341fcb1f17f17cfa24091c4eb319cda0d9b84278387"
 }

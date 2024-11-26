@@ -1,13 +1,13 @@
-<div class="button-container">
-  <button mat-fab extended (click)="openDialog((isOpen = !isOpen))">
+<div class="button-container" cdkDrag>
+  <button mat-fab extended (click)="openDialog()">
     <mat-icon>
-      {{ isOpen ? 'visibility_off' : 'visibility' }}
+      {{ isOpen ? 'visibility' : 'visibility_off' }}
     </mat-icon>
     Jbrowse
   </button>
 </div>
 
-<app-chart></app-chart>
+<app-chart [data]="data"></app-chart>
 
 <ng-template>
   <div
@@ -27,3 +27,4 @@
 <app-g4-table
   [abbreviation]="this.abbreviation"
   [locString]="this.locString"></app-g4-table>
+<div style="height: 100px"></div>

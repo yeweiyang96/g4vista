@@ -41,9 +41,9 @@ export class Tab2Component implements AfterViewInit, OnDestroy {
   private _overlayRef!: OverlayRef;
   private _portal!: TemplatePortal;
   isOpen = false;
-
   @Input() abbreviation = '';
   locString = 'chromosome-1-1:1..5,482,170';
+  data = {};
 
   ngAfterViewInit() {
     this._portal = new TemplatePortal(
@@ -58,19 +58,22 @@ export class Tab2Component implements AfterViewInit, OnDestroy {
         .centerVertically(),
       hasBackdrop: false,
     });
+    this._overlayRef.attach(this._portal);
     // click outside to close
     // this._overlayRef.backdropClick().subscribe(() => this._overlayRef.detach());
   }
 
   ngOnDestroy() {
+    this._overlayRef.detach();
     this._overlayRef.dispose();
   }
 
-  openDialog(isOpen: boolean) {
-    if (isOpen) {
-      this._overlayRef.attach(this._portal);
+  openDialog() {
+    console.log('openDialog:', this.isOpen);
+    if (!this.isOpen) {
+      this.isOpen = true;
     } else {
-      isOpen = false;
+      this.isOpen = false;
     }
   }
 }

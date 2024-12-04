@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { DataSourceStorageService } from '../../../shared/service/data-source-storage.service';
 import { Observable } from 'rxjs';
-import { GenomeInfo } from '../Genome';
+import { GenomeInfo } from '../../../shared/dataclass/Genome';
 @Injectable({
   providedIn: 'root',
 })

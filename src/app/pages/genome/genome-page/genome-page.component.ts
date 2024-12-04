@@ -2,7 +2,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { GetGenomeService } from './get-genome-info-api.service';
 import { Title } from '@angular/platform-browser';
-import { GenomeInfo } from '../Genome';
+import { GenomeInfo } from '../../../shared/dataclass/Genome';
 import { Observable } from 'rxjs';
 // import { ParsedLocString } from '@jbrowse/core/util';
 import { Tab2Component } from './tab2/tab2.component';

@@ -1,1 +1,20 @@
+.spinner {
+  position: absolute;
+}
+.spinner-text {
+  position: absolute;
 
+}
+
+
+.chart-settings {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  align-items: stretch;
+}
+
+mat-error {
+  width: max-content;
+}

@@ -23,7 +23,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
-import { G4_MBGD } from '../../../Genome';
+import { G4_MBGD } from '../../../../../shared/dataclass/Genome';
 import { Subject, takeUntil } from 'rxjs';
 import { GetG4Service } from './get-g4-data-api.service';
 import { JbrowseService } from '../jbrowse/jbrowse.service';

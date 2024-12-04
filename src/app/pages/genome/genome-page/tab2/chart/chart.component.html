@@ -1,8 +1,11 @@
+@if (isLoading) {
+  <mat-spinner class="spinner"></mat-spinner>
+  <h1 class="spinner-text">Chart Loading...</h1>
+}
 <div id="vega-view"></div>
-<button mat-raised-button (click)="exportTsv()">Export TSV</button>
-<div>
+<div class="chart-settings">
   <mat-form-field>
-    <mat-label>Step Size</mat-label>
+    <mat-label>Bin Step Size</mat-label>
     <input
       matInput
       type="number"
@@ -10,11 +13,40 @@
       [max]="chromosome.length"
       required
       [value]="chromosome.length / 100"
+      placeholder="{{ chromosome.length / 100 }}"
+      [formControl]="stepSizeFormControl"
       #step />
+    @if (
+      stepSizeFormControl.hasError('min') &&
+      !stepSizeFormControl.hasError('required')
+    ) {
+      <mat-error
+        >The input value must be greater than or equal to
+        <strong>1</strong></mat-error
+      >
+    }
+    @if (
+      stepSizeFormControl.hasError('max') &&
+      !stepSizeFormControl.hasError('required')
+    ) {
+      <mat-error
+        >The input value must be less than or equal to
+        <strong>{{ chromosome.length }}</strong></mat-error
+      >
+    }
+    @if (
+      stepSizeFormControl.hasError('pattern') &&
+      !stepSizeFormControl.hasError('required')
+    ) {
+      <mat-error>The input value must be an integer</mat-error>
+    }
+    @if (stepSizeFormControl.hasError('required')) {
+      <mat-error>Value is <strong>required</strong></mat-error>
+    }
   </mat-form-field>
 
   <div>
-    <span>Value</span>
+    <span class="slider-value-title">Bin Size: </span>
     <span>{{ binStepSlider.value }}</span>
   </div>
 
@@ -37,8 +69,9 @@
       [formControl]="toppings"
       (selectionChange)="onSelectChange()">
       @for (topping of toppingList; track topping) {
-        <mat-option [value]="topping">{{ topping }}</mat-option>
+        <mat-option [value]="topping">{{ topping }} Tetrads</mat-option>
       }
     </mat-select>
   </mat-form-field>
+  <button mat-raised-button (click)="exportTsv()">Export TSV</button>
 </div>

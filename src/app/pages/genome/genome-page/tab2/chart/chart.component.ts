@@ -8,8 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSelectModule } from '@angular/material/select';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-chart',
   standalone: true,
@@ -21,6 +27,7 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss',
@@ -35,8 +42,23 @@ export class ChartComponent implements OnInit {
   toppingList = ['2', '3', '4', '5'];
   toppings = new FormControl(this.toppingList); //响应式表单的方法来双向绑定选择的stepList的值
 
+  isLoading = true;
+  stepSizeFormControl!: FormControl;
+
   constructor() {
-    this.chromosome = { name: '1', length: 2700000 };
+    this.chromosome = {
+      name: '1',
+      length: 2700000,
+      g4_tetreds: ['2', '3', '4', '5'],
+    };
+    this.toppingList = this.chromosome.g4_tetreds;
+    this.stepSizeFormControl = new FormControl(this.chromosome.length / 100, [
+      Validators.min(1),
+      Validators.max(this.chromosome.length),
+      Validators.required,
+      // eslint-disable-next-line no-useless-escape
+      Validators.pattern(/^\d+$/), // 正整数验证
+    ]);
   }
 
   ngOnInit(): void {
@@ -214,7 +236,7 @@ export class ChartComponent implements OnInit {
       })
         .then(result => {
           this.view = result.view;
-          console.log(this.view.signal('tetrads1')[0]);
+          this.isLoading = false;
         })
         .catch(console.error);
     }

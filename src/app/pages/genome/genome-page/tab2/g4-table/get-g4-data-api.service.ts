@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Papa from 'papaparse';
-import { G4_MBGD } from '../../../Genome';
+import { G4_MBGD } from '../../../../../shared/dataclass/Genome';
 import { DataSourceStorageService } from '../../../../../shared/service/data-source-storage.service';
 
 @Injectable({

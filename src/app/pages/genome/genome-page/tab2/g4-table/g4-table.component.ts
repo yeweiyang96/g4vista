@@ -17,6 +17,7 @@ import {
   NzTableSortOrder,
   NzCustomColumn,
 } from 'ng-zorro-antd/table';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -55,6 +56,7 @@ interface CustomColumn extends NzCustomColumn {
   standalone: true,
   imports: [
     NzTableModule,
+    NzIconModule,
     SlicePipe,
     OverlayModule,
     NzDropDownModule,

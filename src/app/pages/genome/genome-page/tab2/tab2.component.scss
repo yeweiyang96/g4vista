@@ -38,6 +38,14 @@
   position: absolute;
   bottom: 20px;
   right: 20px;
-  z-index: 1;
+  z-index: 99;
+}
+
+.chart {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-content: flex-start;
+  align-items: center;
 }
 

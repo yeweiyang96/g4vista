@@ -26,7 +26,7 @@
   [nzVirtualForTrackBy]="trackByIndex"
   [nzFrontPagination]="false"
   [nzShowPagination]="false"
-  [nzScroll]="{ x: '100vw', y: '240px' }"
+  [nzScroll]="{ x: '100vw', y: '350px' }"
   [nzCustomColumn]="customColumn"
   class="table-viewport">
   <thead>
@@ -70,8 +70,20 @@
               this.onClick(data.T1 + '..' + (data.T4 + data.TS))
             ">
             <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
-            <span>{{ data.SEQ | slice: data.TS : -data.TS }}</span>
-            <span class="highlight">{{ data.SEQ | slice: -data.TS }}</span>
+            <span>{{ data.SEQ.slice(data.TS, data.T2 - data.T1) }}</span>
+            <span class="highlight">{{
+              data.SEQ.slice(data.T2 - data.T1, data.T2 - data.T1 + data.TS)
+            }}</span>
+            <span>{{
+              data.SEQ.slice(data.T2 - data.T1 + data.TS, data.T3 - data.T1)
+            }}</span>
+            <span class="highlight">{{
+              data.SEQ.slice(data.T3 - data.T1, data.T3 - data.T1 + data.TS)
+            }}</span>
+            <span>{{
+              data.SEQ.slice(data.T3 - data.T1 + data.TS, -data.TS)
+            }}</span>
+            <span class="highlight">{{ data.SEQ.slice(-data.TS) }}</span>
           </a>
         </td>
         <td nzCellControl="insideOf_genes'upstream_1k(+)">{{ data.gene }}</td>
@@ -155,4 +167,5 @@
     </div>
   </ng-container>
 </nz-modal>
+<div class></div>
 <!-- <button mat-raised-button color="primary" (click)="g4()">show</button> -->

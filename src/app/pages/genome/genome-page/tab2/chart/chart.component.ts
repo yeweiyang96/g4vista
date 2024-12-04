@@ -2,12 +2,26 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { View } from 'vega';
 import embed from 'vega-embed';
-// import { ChartService } from './chart.service';
+import { Chromosome } from '../../../../../shared/dataclass/Chromosome';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatSelectModule } from '@angular/material/select';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-chart',
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSliderModule,
+    MatSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss',
 })
@@ -16,8 +30,14 @@ export class ChartComponent implements OnInit {
   @Input() data!: object; // Data to display in viewer
   showData = false; // Controls visibility of data viewer
   view!: View; // Vega view instance
+  @Input() chromosome!: Chromosome;
 
-  constructor() {}
+  toppingList = ['2', '3', '4', '5'];
+  toppings = new FormControl(this.toppingList); //响应式表单的方法来双向绑定选择的stepList的值
+
+  constructor() {
+    this.chromosome = { name: '1', length: 2700000 };
+  }
 
   ngOnInit(): void {
     this.vegaSpec = {
@@ -26,21 +46,49 @@ export class ChartComponent implements OnInit {
         'Interactive histogram of G4 sequence distribution along the chromosome.',
       width: 800,
       height: 300,
-      padding: 0,
+      padding: 5,
+      title: {
+        text: 'Distribution of G4 Sequences on the Chromosome', // 图表标题
+        anchor: 'center', // 标题对齐方式（start: 左对齐）
+        fontSize: 20, // 标题字体大小
+        font: 'Roboto', // 标题字体
+        dy: 0, // 标题的垂直偏移
+      },
+
       signals: [
+        // {
+        //   name: 'binStep',
+        //   value: 50000,
+        //   bind: {
+        //     name: 'Bin Step Size: ',
+        //     input: 'range',
+        //     min: 10000,
+        //     max: 200000,
+        //     step: 10000,
+        //   },
+        // },
+        // {
+        //   name: 'tetrads',
+        //   value: 0,
+        //   bind: {
+        //     name: 'Number of Tetrads: ',
+        //     input: 'select',
+        //     options: [0, 2, 3, 4, 5],
+        //     labels: ['All', '2', '3', '4', '5'],
+        //   },
+        // },
+
+        // 绑定到外部滑块
         {
-          name: 'binStep',
-          value: 50000,
-          bind: { input: 'range', min: 10000, max: 200000, step: 10000 },
+          name: 'binStep1',
+          // value: this.bin.min,
+          bind: {
+            element: '#binStepSlider',
+          },
         },
         {
-          name: 'tetrads',
-          value: 0,
-          bind: {
-            input: 'select',
-            options: [0, 2, 3, 4, 5],
-            labels: ['All', '2', '3', '4', '5'],
-          },
+          name: 'tetrads1',
+          value: this.toppingList,
         },
       ],
       data: [
@@ -55,13 +103,13 @@ export class ChartComponent implements OnInit {
           transform: [
             {
               type: 'filter',
-              expr: 'tetrads == 0 || datum.TS == tetrads',
+              expr: 'indexof(tetrads1,datum.TS) > -1',
             },
             {
               type: 'bin',
               field: 'T1',
               extent: [0, 2700000],
-              step: { signal: 'binStep' },
+              step: { signal: 'binStep1' },
               nice: false,
               as: ['start', 'end'],
             },
@@ -98,8 +146,26 @@ export class ChartComponent implements OnInit {
         },
       ],
       axes: [
-        { orient: 'bottom', scale: 'xscale', title: 'Chromosome Region' },
-        { orient: 'left', scale: 'yscale', title: 'G4 Count' },
+        {
+          orient: 'bottom',
+          scale: 'xscale',
+          title: 'Chromosome Region',
+          titleFontSize: 14, // X轴标题字体大小
+          titleFont: 'Arial', // X轴标题字体
+          titleFontWeight: 'bold', // X轴标题字体粗细
+          labelFontSize: 12, // X轴刻度标签字体大小
+          labelFont: 'Arial',
+        },
+        {
+          orient: 'left',
+          scale: 'yscale',
+          title: 'G4 Count',
+          titleFontSize: 14, // X轴标题字体大小
+          titleFont: 'Arial', // X轴标题字体
+          titleFontWeight: 'bold', // X轴标题字体粗细
+          labelFontSize: 12, // X轴刻度标签字体大小
+          labelFont: 'Arial',
+        },
       ],
       marks: [
         {
@@ -116,11 +182,24 @@ export class ChartComponent implements OnInit {
                 signal:
                   "{'Region Start': datum.start, 'Region End': datum.end, 'Count': datum.count, 'Avg Score': format(datum.mean_score, '.2f')}",
               },
+              stroke: { value: 'black' }, // 边框颜色
+              strokeWidth: { value: 1 },
             },
             hover: {
               fill: { value: 'blue' },
             },
           },
+        },
+      ],
+      legends: [
+        {
+          fill: 'colorScale', // 绑定颜色比例尺
+          title: 'Mean Score', // 图例标题
+          orient: 'right', // 图例位置
+          titleFont: 'Arial', // 图例标题字体
+          titleFontSize: 14, // 图例标题字体大小
+          labelFont: 'Arial', // 图例标签字体
+          labelFontSize: 12, // 图例标签字体大小
         },
       ],
     };
@@ -134,7 +213,8 @@ export class ChartComponent implements OnInit {
         },
       })
         .then(result => {
-          this.view = result.view; // 获取 Vega view 实例
+          this.view = result.view;
+          console.log(this.view.signal('tetrads1')[0]);
         })
         .catch(console.error);
     }
@@ -169,5 +249,10 @@ export class ChartComponent implements OnInit {
     a.click();
     a.remove();
     URL.revokeObjectURL(tsvUrl);
+  }
+
+  onSelectChange() {
+    console.log('Selected value:', this.toppings.value);
+    this.view.signal('tetrads1', this.toppings.value).run();
   }
 }

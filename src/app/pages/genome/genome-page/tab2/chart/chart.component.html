@@ -1,2 +1,44 @@
 <div id="vega-view"></div>
 <button mat-raised-button (click)="exportTsv()">Export TSV</button>
+<div>
+  <mat-form-field>
+    <mat-label>Step Size</mat-label>
+    <input
+      matInput
+      type="number"
+      [min]="1"
+      [max]="chromosome.length"
+      required
+      [value]="chromosome.length / 100"
+      #step />
+  </mat-form-field>
+
+  <div>
+    <span>Value</span>
+    <span>{{ binStepSlider.value }}</span>
+  </div>
+
+  <mat-slider
+    min="{{ step.value }}"
+    max="{{ chromosome.length }}"
+    step="{{ step.value }}">
+    <input
+      matSliderThumb
+      #binStepSlider
+      [value]="chromosome.length / 100"
+      id="binStepSlider" />
+  </mat-slider>
+
+  <mat-form-field>
+    <mat-label>Tetrads</mat-label>
+    <mat-select
+      multiple
+      [value]="toppingList"
+      [formControl]="toppings"
+      (selectionChange)="onSelectChange()">
+      @for (topping of toppingList; track topping) {
+        <mat-option [value]="topping">{{ topping }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

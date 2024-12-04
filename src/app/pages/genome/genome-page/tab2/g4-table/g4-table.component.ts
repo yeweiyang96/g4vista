@@ -10,11 +10,11 @@ import {
 import { FormsModule } from '@angular/forms';
 import {
   NzTableComponent,
-  NzTableFilterFn,
-  NzTableFilterList,
+  // NzTableFilterFn,
+  // NzTableFilterList,
   NzTableModule,
-  NzTableSortFn,
-  NzTableSortOrder,
+  // NzTableSortFn,
+  // NzTableSortOrder,
   NzCustomColumn,
 } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -26,7 +26,6 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { G4_MBGD } from '../../../Genome';
 import { Subject, takeUntil } from 'rxjs';
 import { GetG4Service } from './get-g4-data-api.service';
-import { SlicePipe } from '@angular/common';
 import { JbrowseService } from '../jbrowse/jbrowse.service';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {
@@ -37,13 +36,13 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
-interface ColumnItem {
-  name: string;
-  sortOrder: NzTableSortOrder | null;
-  sortFn: NzTableSortFn<G4_MBGD> | null;
-  listOfFilter: NzTableFilterList;
-  filterFn: NzTableFilterFn<G4_MBGD> | null;
-}
+// interface ColumnItem {
+//   name: string;
+//   sortOrder: NzTableSortOrder | null;
+//   sortFn: NzTableSortFn<G4_MBGD> | null;
+//   listOfFilter: NzTableFilterList;
+//   filterFn: NzTableFilterFn<G4_MBGD> | null;
+// }
 
 interface CustomColumn extends NzCustomColumn {
   name: string;
@@ -57,7 +56,6 @@ interface CustomColumn extends NzCustomColumn {
   imports: [
     NzTableModule,
     NzIconModule,
-    SlicePipe,
     OverlayModule,
     NzDropDownModule,
     FormsModule,

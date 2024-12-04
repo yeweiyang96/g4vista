@@ -20,7 +20,7 @@
   "workbench.colorTheme": "One Dark Pro Darker",
   "window.autoDetectColorScheme": true,
   "workbench.preferredDarkColorTheme": "Default Dark Modern",
-  "workbench.preferredLightColorTheme": "Quiet Light",
+  "workbench.preferredLightColorTheme": "Default Light Modern",
   "git.ignoreLimitWarning": true
 }
 

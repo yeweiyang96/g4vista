@@ -5,8 +5,6 @@
   position: absolute;
 
 }
-
-
 .chart-settings {
   display: flex;
   justify-content: center;
@@ -14,7 +12,18 @@
   align-content: center;
   align-items: stretch;
 }
-
 mat-error {
   width: max-content;
 }
+.slider-value-continer {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.chart-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+}
+

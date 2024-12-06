@@ -1,4 +1,5 @@
-<div class="button-container" cdkDrag>
+<!--Jbrowse-->
+<div class="jbowse-button-container" cdkDrag>
   <button mat-fab extended (click)="openDialog()">
     <mat-icon>
       {{ isOpen ? 'visibility' : 'visibility_off' }}
@@ -6,9 +7,6 @@
     Jbrowse
   </button>
 </div>
-
-<app-chart [data]="data" class="chart"></app-chart>
-
 <ng-template>
   <div
     class="example-dialog-content"
@@ -16,14 +14,34 @@
     cdkDragRootElement=".cdk-overlay-pane"
     [ngStyle]="{ display: isOpen ? 'flex' : 'none' }">
     <app-jbrowse
-      [abbreviation]="this.abbreviation"
-      [locString]="this.locString"></app-jbrowse>
+      [abbreviation]="abbreviation"
+      [locString]="locString"></app-jbrowse>
     <div class="example-handle" cdkDragHandle>
       <svg height="32px" fill="none" viewBox="0 0 24 24"></svg>
     </div>
   </div>
 </ng-template>
-
+<!--Jbrowse-->
+<div class="chromosome-list">
+  <mat-action-list>
+    @for (chromosome of chromosomeList; track chromosome) {
+      <button mat-list-item (click)="changeChromosome(chromosome)">
+        {{ chromosome }}
+      </button>
+    }
+  </mat-action-list>
+  <section>
+    <mat-button-toggle-group [formControl]="g4_type" aria-label="G4 Type">
+      <mat-button-toggle value="g">G-Rich</mat-button-toggle>
+      <mat-button-toggle value="c">C-Rich</mat-button-toggle>
+    </mat-button-toggle-group>
+  </section>
+</div>
+<app-chart
+  [abbreviation]="abbreviation"
+  [chromosome]="chromosome"
+  [type]="g4_type.value"></app-chart>
 <app-g4-table
-  [abbreviation]="this.abbreviation"
-  [locString]="this.locString"></app-g4-table>
+  [abbreviation]="abbreviation"
+  [chromosome]="chromosome"
+  [g4_type]="g4_type.value"></app-g4-table>

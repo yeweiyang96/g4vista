@@ -32,8 +32,10 @@ export class JbrowseComponent implements OnChanges, OnDestroy {
   root!: Root;
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('change', changes);
-    this.render();
+    // console.log('change', changes);
+    if (changes['abbreviation'] || changes['locString']) {
+      this.render();
+    }
   }
 
   // ngAfterViewInit(): void {
@@ -41,15 +43,15 @@ export class JbrowseComponent implements OnChanges, OnDestroy {
   //   this.render();
   // }
   ngOnDestroy(): void {
-    console.log('destroy');
+    // console.log('destroy');
     this.root.unmount();
   }
   private render() {
     if (!this.root) {
-      console.log('createRoot');
+      // console.log('createRoot');
       this.root = createRoot(this.containerRef.nativeElement);
     }
-    console.log('render:', this.abbreviation);
+    // console.log('render:', this.abbreviation);
 
     this.root.render(
       createElement(View, {

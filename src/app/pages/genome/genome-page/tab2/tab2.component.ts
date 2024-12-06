@@ -1,3 +1,4 @@
+import { Chromosome } from './../../../../shared/dataclass/Chromosome';
 import {
   Component,
   ViewChild,
@@ -7,6 +8,7 @@ import {
   OnDestroy,
   inject,
   Input,
+  OnInit,
 } from '@angular/core';
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -17,7 +19,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgStyle } from '@angular/common';
 import { ChartComponent } from './chart/chart.component';
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
 @Component({
   selector: 'app-tab2',
   standalone: true,
@@ -30,20 +34,39 @@ import { ChartComponent } from './chart/chart.component';
     MatIconModule,
     NgStyle,
     ChartComponent,
+    MatButtonToggleModule,
+    ReactiveFormsModule,
+    MatListModule,
   ],
   templateUrl: './tab2.component.html',
   styleUrl: './tab2.component.scss',
 })
-export class Tab2Component implements AfterViewInit, OnDestroy {
+export class Tab2Component implements AfterViewInit, OnDestroy, OnInit {
   private _overlay = inject(Overlay);
   private _viewContainerRef = inject(ViewContainerRef);
   @ViewChild(TemplateRef) _dialogTemplate!: TemplateRef<unknown>;
   private _overlayRef!: OverlayRef;
   private _portal!: TemplatePortal;
   isOpen = false;
+
   @Input() abbreviation = '';
-  locString = 'chromosome-1-1:1..5,482,170';
+  chromosome!: Chromosome;
+  g4_type: FormControl = new FormControl('g');
+  locString = 'chromosome-1-1:1..1000';
   data = {};
+  @Input()
+  chromosomeList: Chromosome[] = [];
+
+  ngOnInit() {
+    console.log('init');
+    this.chromosome = {
+      name: 'chromosome-1-1',
+      length: 5482170,
+      g4_tetreds: ['2', '3', '4', '5'],
+    };
+    // this.chromosome = this.chromosomeList[0];
+    // this.locString = this.chromosomeList[0].name+':1..1000';
+  }
 
   ngAfterViewInit() {
     this._portal = new TemplatePortal(
@@ -69,11 +92,14 @@ export class Tab2Component implements AfterViewInit, OnDestroy {
   }
 
   openDialog() {
-    console.log('openDialog:', this.isOpen);
     if (!this.isOpen) {
       this.isOpen = true;
     } else {
       this.isOpen = false;
     }
+  }
+
+  changeChromosome(chromosome: Chromosome) {
+    this.chromosome = chromosome;
   }
 }

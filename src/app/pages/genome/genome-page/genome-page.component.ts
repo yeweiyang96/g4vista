@@ -20,8 +20,9 @@ export class GenomePageComponent implements OnInit {
   genomeData$!: Observable<GenomeInfo>;
   data: GenomeInfo = {
     genome: 'Loading...',
-    chromosomes: [],
+    chromosome_list: [],
     description: 'Loading...',
+    g4_statistics: [],
   };
 
   constructor(

@@ -1,171 +1,194 @@
-<!-- <button nz-button (click)="scrollToIndex(200)">Scroll To Index 200</button> -->
+<!--  -->
 <!--
 <br />
 <br /> -->
-
-<button
-  nz-button
-  nzType="primary"
-  nzSize="small"
-  (click)="showModal()"
-  style="margin-bottom: 8px"
-  class="table-setting-button">
-  <mat-icon
-    aria-hidden="false"
-    aria-label="Table tune icon"
-    fontIcon="tune"></mat-icon>
-</button>
-<nz-table
-  #virtualTable
-  #smallTable
-  nzSize="small"
-  [nzBordered]="true"
-  [nzVirtualItemSize]="20"
-  [nzData]="listOfDisplayData"
-  [nzLoading]="loading"
-  [nzVirtualForTrackBy]="trackByIndex"
-  [nzFrontPagination]="false"
-  [nzShowPagination]="false"
-  [nzScroll]="{ x: '100vw', y: '350px' }"
-  [nzCustomColumn]="customColumn"
-  class="table-viewport">
-  <thead>
-    <tr>
-      <!-- <th nzLeft>name</th> -->
-      <!-- <th nzLeft>seqname</th> -->
-      <th nzCellControl="Start" nzLeft>Start</th>
-      <!-- <th>T2</th> -->
-      <!-- <th>T3</th> -->
-      <th nzCellControl="End">End</th>
-      <th nzCellControl="Number of tetrads">Number of tetrads</th>
-      <th nzCellControl="G-Score">G-Score</th>
-      <th nzCellControl="SEQ">SEQ</th>
-      <th nzCellControl="insideOf_genes'upstream_1k(+)" nzCustomFilter>
-        insideOf_genes'upstream_1k(+)
-        <nz-filter-trigger
-          [(nzVisible)]="visible"
-          [nzActive]="searchValue.length > 0"
-          [nzDropdownMenu]="menu">
-          <span nz-icon nzType="search"></span>
-        </nz-filter-trigger>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-template nz-virtual-scroll let-data let-index="index">
-      <tr>
-        <!-- <td nzLeft>{{ data.name }}</td> -->
-        <!-- <td nzLeft>{{ data.seqname }}</td> -->
-        <td nzCellControl="Start" nzLeft>{{ data.T1 }}</td>
-        <!-- <td>{{ data.T2 }}</td> -->
-        <!-- <td>{{ data.T3 }}</td> -->
-        <td nzCellControl="End">{{ data.T4 + data.TS }}</td>
-        <td nzCellControl="Number of tetrads">{{ data.TS }}</td>
-        <td nzCellControl="G-Score">{{ data.GS }}</td>
-        <td nzCellControl="SEQ" nzBreakWord>
-          <a
-            (click)="this.onClick(data.T1 + '..' + (data.T4 + data.TS))"
-            tabindex="0"
-            (keydown.enter)="
-              this.onClick(data.T1 + '..' + (data.T4 + data.TS))
-            ">
-            <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
-            <span>{{ data.SEQ.slice(data.TS, data.T2 - data.T1) }}</span>
-            <span class="highlight">{{
-              data.SEQ.slice(data.T2 - data.T1, data.T2 - data.T1 + data.TS)
-            }}</span>
-            <span>{{
-              data.SEQ.slice(data.T2 - data.T1 + data.TS, data.T3 - data.T1)
-            }}</span>
-            <span class="highlight">{{
-              data.SEQ.slice(data.T3 - data.T1, data.T3 - data.T1 + data.TS)
-            }}</span>
-            <span>{{
-              data.SEQ.slice(data.T3 - data.T1 + data.TS, -data.TS)
-            }}</span>
-            <span class="highlight">{{ data.SEQ.slice(-data.TS) }}</span>
-          </a>
-        </td>
-        <td nzCellControl="insideOf_genes'upstream_1k(+)">{{ data.gene }}</td>
-      </tr>
-    </ng-template>
-  </tbody>
-</nz-table>
-<nz-dropdown-menu #menu="nzDropdownMenu">
-  <div class="ant-table-filter-dropdown">
-    <div class="search-box">
-      <input
-        type="text"
-        nz-input
-        placeholder="Search gene"
-        [(ngModel)]="searchValue" />
-      <button
-        nz-button
-        nzSize="small"
-        nzType="primary"
-        (click)="search()"
-        class="search-button">
-        Search
+<div class="table-container">
+  <div class="table-setting-button">
+    <!-- <div>
+      <mat-form-field appearance="outline" class="form-field-scroll">
+        <mat-label>postion</mat-label>
+        <input matInput type="number" [(ngModel)]="scrollIndex" />
+      </mat-form-field>
+      <button mat-raised-button (click)="scrollToIndex(scrollIndex)">
+        Scroll
       </button>
-      <button nz-button nzSize="small" (click)="reset()">Reset</button>
-    </div>
+    </div> -->
+
+    <button mat-icon-button (click)="showModal()">
+      <mat-icon>tune</mat-icon>
+    </button>
   </div>
-</nz-dropdown-menu>
-<nz-modal
-  [(nzVisible)]="isVisible"
-  nzTitle="Custom Column"
-  (nzOnCancel)="handleCancel()"
-  (nzOnOk)="handleOk()">
-  <ng-container *nzModalContent>
-    <div nz-row [nzGutter]="24">
-      <div nz-col class="gutter-row" [nzSpan]="12">
-        <div class="example-container">
-          <p>Displayed (drag and drop to sort)</p>
-          @for (item of title; track item) {
-            <div class="example-box">
-              {{ item.name }}
-            </div>
-          }
-          <div
-            cdkDropList
-            #todoList="cdkDropList"
-            [cdkDropListData]="fix"
-            [cdkDropListConnectedTo]="[doneList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            @for (item of fix; track item; let i = $index) {
-              <div class="example-box" cdkDrag>
-                {{ item.name }}
-              </div>
-            }
-          </div>
-          @for (item of footer; track item) {
-            <div class="example-box">
-              {{ item.name }}
-            </div>
-          }
-        </div>
-      </div>
-      <div nz-col class="gutter-row" [nzSpan]="12">
-        <div class="example-container">
-          <p>Not Shown</p>
-          <div
-            cdkDropList
-            #doneList="cdkDropList"
-            [cdkDropListData]="notFix"
-            [cdkDropListConnectedTo]="[todoList]"
-            class="example-list"
-            (cdkDropListDropped)="drop($event)">
-            @for (item of notFix; track item; let i = $index) {
-              <div class="example-box" cdkDrag>
-                {{ item.name }}
-              </div>
-            }
-          </div>
-        </div>
+
+  <nz-table
+    #virtualTable
+    #smallTable
+    nzSize="small"
+    [nzBordered]="true"
+    [nzVirtualItemSize]="20"
+    [nzData]="listOfDisplayData"
+    [nzLoading]="loading"
+    [nzVirtualForTrackBy]="trackByIndex"
+    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
+    [nzScroll]="{ y: '500px' }"
+    [nzCustomColumn]="customColumn"
+    class="table-viewport">
+    <thead>
+      <tr>
+        <th
+          nzCellControl="Start"
+          [(nzSortOrder)]="customColumn[0].sortOrder"
+          [nzSortFn]="customColumn[0].sortFn"
+          nzLeft>
+          Start
+        </th>
+        <th
+          nzCellControl="End"
+          [(nzSortOrder)]="customColumn[1].sortOrder"
+          [nzSortFn]="customColumn[1].sortFn">
+          End
+        </th>
+        <th
+          nzCellControl="Number of tetrads"
+          [(nzSortOrder)]="customColumn[2].sortOrder"
+          [nzSortFn]="customColumn[2].sortFn"
+          [nzFilters]="customColumn[2].listOfFilter"
+          [nzFilterFn]="customColumn[2].filterFn"
+          [nzFilterFn]="customColumn[2].filterFn">
+          Number of tetrads
+        </th>
+        <th
+          nzCellControl="G-Score"
+          [(nzSortOrder)]="customColumn[3].sortOrder"
+          [nzSortFn]="customColumn[3].sortFn">
+          G-Score
+        </th>
+        <th nzCellControl="SEQ">SEQ</th>
+        <th nzCellControl="insideOf_genes'upstream_1k(+)" nzCustomFilter>
+          insideOf_genes'upstream_1k(+)
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template nz-virtual-scroll let-data let-index="index">
+        <tr>
+          <!-- <td nzLeft>{{ data.name }}</td> -->
+          <!-- <td nzLeft>{{ data.seqname }}</td> -->
+          <td nzCellControl="Start" nzLeft>{{ data.T1 }}</td>
+          <!-- <td>{{ data.T2 }}</td> -->
+          <!-- <td>{{ data.T3 }}</td> -->
+          <td nzCellControl="End">{{ data.T4 + data.TS }}</td>
+          <td nzCellControl="Number of tetrads">{{ data.TS }}</td>
+          <td nzCellControl="G-Score">{{ data.GS }}</td>
+          <td nzCellControl="SEQ" nzBreakWord>
+            <a
+              (click)="this.onClick(data.T1 + '..' + (data.T4 + data.TS))"
+              tabindex="0"
+              (keydown.enter)="
+                this.onClick(data.T1 + '..' + (data.T4 + data.TS))
+              ">
+              <span class="highlight">{{ data.SEQ.slice(0, data.TS) }}</span>
+              <span>{{ data.SEQ.slice(data.TS, data.T2 - data.T1) }}</span>
+              <span class="highlight">{{
+                data.SEQ.slice(data.T2 - data.T1, data.T2 - data.T1 + data.TS)
+              }}</span>
+              <span>{{
+                data.SEQ.slice(data.T2 - data.T1 + data.TS, data.T3 - data.T1)
+              }}</span>
+              <span class="highlight">{{
+                data.SEQ.slice(data.T3 - data.T1, data.T3 - data.T1 + data.TS)
+              }}</span>
+              <span>{{
+                data.SEQ.slice(data.T3 - data.T1 + data.TS, -data.TS)
+              }}</span>
+              <span class="highlight">{{ data.SEQ.slice(-data.TS) }}</span>
+            </a>
+          </td>
+          <td nzCellControl="insideOf_genes'upstream_1k(+)">{{ data.gene }}</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input
+          type="text"
+          nz-input
+          placeholder="Search gene"
+          [(ngModel)]="searchValue" />
+        <button
+          nz-button
+          nzSize="small"
+          nzType="primary"
+          (click)="search()"
+          class="search-button">
+          Search
+        </button>
+        <button nz-button nzSize="small" (click)="reset()">Reset</button>
       </div>
     </div>
-  </ng-container>
-</nz-modal>
-<div class></div>
-<!-- <button mat-raised-button color="primary" (click)="g4()">show</button> -->
+  </nz-dropdown-menu>
+  <nz-modal
+    [(nzVisible)]="isVisible"
+    nzTitle="Custom Column"
+    (nzOnCancel)="handleCancel()"
+    (nzOnOk)="handleOk()">
+    <ng-container *nzModalContent>
+      <div nz-row [nzGutter]="24">
+        <div nz-col class="gutter-row" [nzSpan]="12">
+          <div class="example-container">
+            <p>Displayed (drag and drop to sort)</p>
+            @for (item of title; track item) {
+              <div class="example-box">
+                {{ item.name }}
+              </div>
+            }
+            <div
+              cdkDropList
+              #todoList="cdkDropList"
+              [cdkDropListData]="fix"
+              [cdkDropListConnectedTo]="[doneList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of fix; track item; let i = $index) {
+                <div class="example-box" cdkDrag>
+                  {{ item.name }}
+                </div>
+              }
+            </div>
+            @for (item of footer; track item) {
+              <div class="example-box">
+                {{ item.name }}
+              </div>
+            }
+          </div>
+        </div>
+        <div nz-col class="gutter-row" [nzSpan]="12">
+          <div class="example-container">
+            <p>Not Shown</p>
+            <div
+              cdkDropList
+              #doneList="cdkDropList"
+              [cdkDropListData]="notFix"
+              [cdkDropListConnectedTo]="[todoList]"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              @for (item of notFix; track item; let i = $index) {
+                <div class="example-box" cdkDrag>
+                  {{ item.name }}
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </nz-modal>
+</div>

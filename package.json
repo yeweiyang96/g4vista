@@ -8,7 +8,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "server": "ng serve --host 133.35.199.34 --port 4200"
   },
   "private": true,
   "dependencies": {

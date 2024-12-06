@@ -31,21 +31,13 @@
   height: 32px;
 }
 
-.button-container {
-  // display: flex;
-  // justify-content: center;
-  // width: 100%;
+.jbowse-button-container {
   position: absolute;
   top: 350px;
-  right: 100px;
+  right: 1rem;
   z-index: 99;
 }
 
-.chart {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  align-content: flex-start;
-  align-items: center;
+.chromosome-list {
+  float: left;
 }
-

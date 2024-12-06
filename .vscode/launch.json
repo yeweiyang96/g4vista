@@ -10,11 +10,11 @@
       "url": "http://localhost:4200/"
     },
     {
-      "name": "ng test",
+      "name": "server",
       "type": "chrome",
       "request": "launch",
-      "preLaunchTask": "npm: test",
-      "url": "http://localhost:9876/debug.html"
+      "preLaunchTask": "npm: server",
+      "url": "https://g4vista.med.niigata-u.ac.jp/"
     }
   ]
 }

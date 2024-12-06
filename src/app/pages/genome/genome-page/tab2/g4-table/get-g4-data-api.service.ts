@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import Papa from 'papaparse';
-import { G4_MBGD } from '../../../../../shared/dataclass/Genome';
+import { G4 } from '../../../../../shared/dataclass/G4';
 import { DataSourceStorageService } from '../../../../../shared/service/data-source-storage.service';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class GetG4Service {
     abbreviation: string,
     chromosome: string,
     type: string
-  ): Observable<G4_MBGD[]> {
+  ): Observable<G4[]> {
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http
       .get(
@@ -34,7 +34,7 @@ export class GetG4Service {
       .pipe(
         map((csvData: string) => {
           // 使用 PapaParse 解析 CSV 数据
-          const result = Papa.parse<G4_MBGD>(csvData, {
+          const result = Papa.parse<G4>(csvData, {
             header: true, // 表示第一行为标题
             skipEmptyLines: true, // 跳过空行
             dynamicTyping: true, // 自动转换数据类型

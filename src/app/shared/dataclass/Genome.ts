@@ -1,18 +1,9 @@
+import { Chromosome } from './Chromosome';
+import { G4Statistics } from './G4Statistics';
+
 export interface GenomeInfo {
   genome: string;
-  chromosomes: string[];
+  chromosome_list: Chromosome[];
   description: string;
-}
-
-export interface G4_MBGD {
-  name: string;
-  seqname: string;
-  T1: number;
-  T2: number;
-  T3: number;
-  T4: number;
-  TS: number;
-  GS: number;
-  SEQ: string;
-  gene: string;
+  g4_statistics: G4Statistics;
 }

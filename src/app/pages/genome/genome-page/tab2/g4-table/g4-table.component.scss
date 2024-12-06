@@ -77,5 +77,15 @@
 }
 
 .table-setting-button {
-  float: right;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.form-field-scroll {
+  width: 5rem;
 }

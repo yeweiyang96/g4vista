@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { View } from 'vega';
 import embed from 'vega-embed';
@@ -32,12 +38,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss',
 })
-export class ChartComponent implements OnInit {
-  @Input() vegaSpec!: object; // Vega JSON specification
-  @Input() data!: object; // Data to display in viewer
-  showData = false; // Controls visibility of data viewer
+export class ChartComponent implements OnInit, OnChanges {
+  vegaSpec!: object; // Vega JSON specification
   view!: View; // Vega view instance
+  @Input() abbreviation = '';
   @Input() chromosome!: Chromosome;
+  @Input() type = 'g';
+  url = 'https://g4vista-api.med.niigata-u.ac.jp/mbgd/g4/';
+  defaultStepSize = 10000;
 
   toppingList = ['2', '3', '4', '5'];
   toppings = new FormControl(this.toppingList); //响应式表单的方法来双向绑定选择的stepList的值
@@ -45,32 +53,42 @@ export class ChartComponent implements OnInit {
   isLoading = true;
   stepSizeFormControl!: FormControl;
 
-  constructor() {
-    this.chromosome = {
-      name: '1',
-      length: 2700000,
-      g4_tetreds: ['2', '3', '4', '5'],
-    };
+  constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // console.log(changes);
+    if (changes['abbreviation'] || changes['chromosome'] || changes['type']) {
+      if (this.view) {
+        this.view.finalize();
+      }
+      this.ngOnInit();
+    }
+  }
+
+  ngOnInit(): void {
+    this.defaultStepSize = Math.ceil(this.chromosome.length / 100);
     this.toppingList = this.chromosome.g4_tetreds;
-    this.stepSizeFormControl = new FormControl(this.chromosome.length / 100, [
+    this.stepSizeFormControl = new FormControl(this.defaultStepSize, [
       Validators.min(1),
       Validators.max(this.chromosome.length),
       Validators.required,
       // eslint-disable-next-line no-useless-escape
       Validators.pattern(/^\d+$/), // 正整数验证
     ]);
-  }
-
-  ngOnInit(): void {
     this.vegaSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description:
         'Interactive histogram of G4 sequence distribution along the chromosome.',
-      width: 800,
+      width: 1000,
       height: 300,
+      autosize: {
+        type: 'pad',
+        // resize: true,
+        contains: 'padding',
+      },
       padding: 5,
       title: {
-        text: 'Distribution of G4 Sequences on the Chromosome', // 图表标题
+        text: 'Distribution of G4 Sequences on the ' + this.chromosome.name, // 图表标题
         anchor: 'center', // 标题对齐方式（start: 左对齐）
         fontSize: 20, // 标题字体大小
         font: 'Roboto', // 标题字体
@@ -78,32 +96,9 @@ export class ChartComponent implements OnInit {
       },
 
       signals: [
-        // {
-        //   name: 'binStep',
-        //   value: 50000,
-        //   bind: {
-        //     name: 'Bin Step Size: ',
-        //     input: 'range',
-        //     min: 10000,
-        //     max: 200000,
-        //     step: 10000,
-        //   },
-        // },
-        // {
-        //   name: 'tetrads',
-        //   value: 0,
-        //   bind: {
-        //     name: 'Number of Tetrads: ',
-        //     input: 'select',
-        //     options: [0, 2, 3, 4, 5],
-        //     labels: ['All', '2', '3', '4', '5'],
-        //   },
-        // },
-
         // 绑定到外部滑块
         {
           name: 'binStep1',
-          // value: this.bin.min,
           bind: {
             element: '#binStepSlider',
           },
@@ -116,7 +111,13 @@ export class ChartComponent implements OnInit {
       data: [
         {
           name: 'g4_data',
-          url: 'https://firebasestorage.googleapis.com/v0/b/g4vista.appspot.com/o/eft_c_chromosome-1-1.csv?alt=media&token=c9f24577-ba41-4427-a499-033ee3b569ff',
+          url:
+            this.url +
+            this.abbreviation +
+            '/' +
+            this.chromosome.name +
+            '/' +
+            this.type,
           format: { type: 'csv' },
         },
         {
@@ -130,7 +131,7 @@ export class ChartComponent implements OnInit {
             {
               type: 'bin',
               field: 'T1',
-              extent: [0, 2700000],
+              extent: [1, this.chromosome.length],
               step: { signal: 'binStep1' },
               nice: false,
               as: ['start', 'end'],
@@ -150,7 +151,7 @@ export class ChartComponent implements OnInit {
           name: 'xscale',
           type: 'linear',
           range: 'width',
-          domain: [0, 2700000],
+          domain: [1, this.chromosome.length],
         },
         {
           name: 'yscale',
@@ -242,10 +243,6 @@ export class ChartComponent implements OnInit {
     }
   }
 
-  toggleDataViewer() {
-    this.showData = !this.showData;
-  }
-
   // 将数据转换为 TSV 格式
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   convertToTSV(data: any[]): string {
@@ -274,7 +271,6 @@ export class ChartComponent implements OnInit {
   }
 
   onSelectChange() {
-    console.log('Selected value:', this.toppings.value);
     this.view.signal('tetrads1', this.toppings.value).run();
   }
 }

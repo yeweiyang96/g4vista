@@ -1,9 +1,11 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { View } from 'vega';
@@ -20,7 +22,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-chart',
@@ -34,6 +36,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
+    ScrollingModule,
   ],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss',
@@ -41,6 +44,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export class ChartComponent implements OnInit, OnChanges {
   vegaSpec!: object; // Vega JSON specification
   view!: View; // Vega view instance
+  @ViewChild('vega') vegaView!: ElementRef;
   @Input() abbreviation = '';
   @Input() chromosome!: Chromosome;
   @Input() type = 'g';
@@ -52,6 +56,9 @@ export class ChartComponent implements OnInit, OnChanges {
 
   isLoading = true;
   stepSizeFormControl!: FormControl;
+
+  lastScrollRight = 0;
+  lastScrollLeft = 0;
 
   constructor() {}
 
@@ -272,5 +279,24 @@ export class ChartComponent implements OnInit, OnChanges {
 
   onSelectChange() {
     this.view.signal('tetrads1', this.toppings.value).run();
+  }
+
+  onWheel(event: WheelEvent): void {
+    // 检查滚动边界
+    const atLeft = this.vegaView.nativeElement.scrollLeft === 0;
+    const atRight =
+      this.vegaView.nativeElement.scrollLeft +
+        this.vegaView.nativeElement.clientWidth >=
+      this.vegaView.nativeElement.scrollWidth;
+
+    // 到达边界时恢复默认滚动
+    if ((atLeft && event.deltaY < 0) || (atRight && event.deltaY > 0)) {
+      // console.log('滚到头');
+      return;
+    } else {
+      // console.log('左右滚动');
+      event.preventDefault(); // 阻止默认垂直滚动
+      this.vegaView.nativeElement.scrollLeft += event.deltaY; // 横向滚动
+    }
   }
 }

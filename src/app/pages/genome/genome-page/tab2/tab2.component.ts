@@ -59,11 +59,13 @@ export class Tab2Component implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     console.log('init');
+
     this.chromosome = {
       name: 'chromosome-1-1',
       length: 5482170,
       g4_tetreds: ['2', '3', '4', '5'],
     };
+    this.chromosomeList = [this.chromosome, this.chromosome, this.chromosome];
     // this.chromosome = this.chromosomeList[0];
     // this.locString = this.chromosomeList[0].name+':1..1000';
   }

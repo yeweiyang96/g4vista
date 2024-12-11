@@ -1,10 +1,14 @@
-<div class="chart-container">
+<div class="chart-container chart-container-column">
   @if (isLoading) {
     <mat-spinner class="spinner"></mat-spinner>
     <h1 class="spinner-text">Chart Loading...</h1>
   }
-  <div id="vega-view"></div>
-  <div class="chart-settings">
+  <div
+    id="vega-view"
+    class="vega-container"
+    (wheel)="onWheel($event)"
+    #vega></div>
+  <div class="chart-settings chart-settings-container">
     <mat-form-field appearance="outline">
       <mat-label>Bin step size(bp)</mat-label>
       <input

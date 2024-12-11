@@ -5,6 +5,7 @@
   position: absolute;
 
 }
+
 .chart-settings {
   display: flex;
   justify-content: center;
@@ -20,10 +21,36 @@ mat-error {
   justify-content: space-between;
   position: relative;
 }
+mat-slider {
+  width: 100%;
+}
 
 .chart-container {
   display: flex;
+  flex-direction: row;
   justify-content: flex-end;
   margin-right: 2rem;
 }
+@media (max-width: 1500px){
+  .chart-container-column {
+    flex-direction: column;
+  }
+  .vega-container {
+    overflow-x: scroll; /* 启用水平滚动 */
+    white-space: nowrap; /* 防止内容折行 */
+  }
+  canvas {
+    overflow: scroll;
+    white-space: nowrap;
+  }
+  .chart-settings-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  mat-slider {
+    width:40%;
+  }
+}
+
+
 

@@ -15,12 +15,15 @@
         <span mat-line class="no-match"> {{ one.abbreviation }}</span>
       </mat-option>
     }
-    <!-- @if ((result$ | async)?.length === 0) {
+    @if ((result$ | async)?.length === 0) {
       <mat-option>
         <mat-icon>error</mat-icon>
         <div mat-line>0 results</div>
-        <div mat-line class="no-match">No matching presidents</div>
+        <div mat-line class="no-match">
+          No matching presidents found (keywords must contain at least 2
+          characters)
+        </div>
       </mat-option>
-    } -->
+    }
   </mat-autocomplete>
 </mat-form-field>

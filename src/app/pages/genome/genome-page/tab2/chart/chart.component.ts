@@ -1,17 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { View } from 'vega';
 import embed from 'vega-embed';
 import { Chromosome } from '../../../../../shared/dataclass/Chromosome';
-
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSliderModule } from '@angular/material/slider';
@@ -24,6 +15,7 @@ import {
 } from '@angular/forms';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { G4 } from '../../../../../shared/dataclass/G4';
 @Component({
   selector: 'app-chart',
   standalone: true,
@@ -41,48 +33,22 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss',
 })
-export class ChartComponent implements OnInit, OnChanges {
-  vegaSpec!: object; // Vega JSON specification
+export class ChartComponent implements OnInit {
   view!: View; // Vega view instance
   @ViewChild('vega') vegaView!: ElementRef;
-  @Input() abbreviation = '';
-  @Input() chromosome!: Chromosome;
-  @Input() type = 'g';
+  readonly g4 = input.required<G4[]>();
+  readonly chromosome = input.required<Chromosome>();
+
   url = 'https://g4vista-api.med.niigata-u.ac.jp/mbgd/g4/';
   defaultStepSize = 10000;
-
-  toppingList = ['2', '3', '4', '5'];
-  toppings = new FormControl(this.toppingList); //响应式表单的方法来双向绑定选择的stepList的值
-
+  toppings: FormControl = new FormControl(); //响应式表单的方法来双向绑定选择的stepList的值
   isLoading = true;
-  stepSizeFormControl!: FormControl;
-
+  stepSizeFormControl: FormControl = new FormControl();
   lastScrollRight = 0;
   lastScrollLeft = 0;
 
-  constructor() {}
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
-    if (changes['abbreviation'] || changes['chromosome'] || changes['type']) {
-      if (this.view) {
-        this.view.finalize();
-      }
-      this.ngOnInit();
-    }
-  }
-
-  ngOnInit(): void {
-    this.defaultStepSize = Math.ceil(this.chromosome.length / 100);
-    this.toppingList = this.chromosome.g4_tetreds;
-    this.stepSizeFormControl = new FormControl(this.defaultStepSize, [
-      Validators.min(1),
-      Validators.max(this.chromosome.length),
-      Validators.required,
-      // eslint-disable-next-line no-useless-escape
-      Validators.pattern(/^\d+$/), // 正整数验证
-    ]);
-    this.vegaSpec = {
+  vegaSpec(chr: Chromosome, g4: G4[]): object {
+    return {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description:
         'Interactive histogram of G4 sequence distribution along the chromosome.',
@@ -95,7 +61,7 @@ export class ChartComponent implements OnInit, OnChanges {
       },
       padding: 5,
       title: {
-        text: 'Distribution of G4 Sequences on the ' + this.chromosome.name, // 图表标题
+        text: 'Distribution of G4 Sequences on the ' + chr.chromosome, // 图表标题
         anchor: 'center', // 标题对齐方式（start: 左对齐）
         fontSize: 20, // 标题字体大小
         font: 'Roboto', // 标题字体
@@ -111,21 +77,14 @@ export class ChartComponent implements OnInit, OnChanges {
           },
         },
         {
-          name: 'tetrads1',
-          value: this.toppingList,
+          name: 'tetrads',
+          value: chr.layers_list,
         },
       ],
       data: [
         {
           name: 'g4_data',
-          url:
-            this.url +
-            this.abbreviation +
-            '/' +
-            this.chromosome.name +
-            '/' +
-            this.type,
-          format: { type: 'csv' },
+          values: g4,
         },
         {
           name: 'binned',
@@ -133,12 +92,12 @@ export class ChartComponent implements OnInit, OnChanges {
           transform: [
             {
               type: 'filter',
-              expr: 'indexof(tetrads1,datum.TS) > -1',
+              expr: 'indexof(tetrads, datum.TS) > -1',
             },
             {
               type: 'bin',
               field: 'T1',
-              extent: [1, this.chromosome.length],
+              extent: [1, chr.length],
               step: { signal: 'binStep1' },
               nice: false,
               as: ['start', 'end'],
@@ -158,7 +117,7 @@ export class ChartComponent implements OnInit, OnChanges {
           name: 'xscale',
           type: 'linear',
           range: 'width',
-          domain: [1, this.chromosome.length],
+          domain: [1, chr.length],
         },
         {
           name: 'yscale',
@@ -233,21 +192,38 @@ export class ChartComponent implements OnInit, OnChanges {
         },
       ],
     };
-    if (this.vegaSpec) {
-      embed('#vega-view', this.vegaSpec, {
-        actions: {
-          export: true, // 允许导出图表为 PNG/SVG
-          source: false, // 查看图表的 Vega JSON
-          compiled: true, // 查看编译后的 Vega-Lite（如果适用）
-          editor: false, // 打开 Vega Editor
-        },
+  }
+
+  constructor() {}
+
+  ngOnInit(): void {
+    this.toppings.setValue(this.chromosome().layers_list);
+    this.init_vega(this.chromosome(), this.g4());
+  }
+
+  init_vega(chr: Chromosome, g4: G4[]): void {
+    this.defaultStepSize = Math.ceil(chr.length / 100);
+    const vegaSpec = this.vegaSpec(chr, g4);
+    this.stepSizeFormControl = new FormControl(this.defaultStepSize, [
+      Validators.min(1),
+      Validators.max(chr.length),
+      Validators.required,
+      // eslint-disable-next-line no-useless-escape
+      Validators.pattern(/^\d+$/), // 正整数验证
+    ]);
+    embed('#vega-view', vegaSpec, {
+      actions: {
+        export: true, // 允许导出图表为 PNG/SVG
+        source: false, // 查看图表的 Vega JSON
+        compiled: false, // 查看编译后的 Vega-Lite（如果适用）
+        editor: false, // 打开 Vega Editor
+      },
+    })
+      .then(result => {
+        this.view = result.view;
+        this.isLoading = false;
       })
-        .then(result => {
-          this.view = result.view;
-          this.isLoading = false;
-        })
-        .catch(console.error);
-    }
+      .catch(console.error);
   }
 
   // 将数据转换为 TSV 格式
@@ -278,7 +254,7 @@ export class ChartComponent implements OnInit, OnChanges {
   }
 
   onSelectChange() {
-    this.view.signal('tetrads1', this.toppings.value).run();
+    this.view.signal('tetrads', this.toppings.value).run();
   }
 
   onWheel(event: WheelEvent): void {

@@ -1,24 +1,9 @@
-<!--  -->
-<!--
-<br />
-<br /> -->
 <div class="table-container">
   <div class="table-setting-button">
-    <!-- <div>
-      <mat-form-field appearance="outline" class="form-field-scroll">
-        <mat-label>postion</mat-label>
-        <input matInput type="number" [(ngModel)]="scrollIndex" />
-      </mat-form-field>
-      <button mat-raised-button (click)="scrollToIndex(scrollIndex)">
-        Scroll
-      </button>
-    </div> -->
-
     <button mat-icon-button (click)="showModal()">
       <mat-icon>tune</mat-icon>
     </button>
   </div>
-
   <nz-table
     #virtualTable
     #smallTable
@@ -64,8 +49,8 @@
           G-Score
         </th>
         <th nzCellControl="SEQ">SEQ</th>
-        <th nzCellControl="insideOf_genes'upstream_1k(+)" nzCustomFilter>
-          insideOf_genes'upstream_1k(+)
+        <th nzCellControl="insideOf_genes_upstream_1k_plus" nzCustomFilter>
+          insideOf_genes_upstream_1k_plus
           <nz-filter-trigger
             [(nzVisible)]="visible"
             [nzActive]="searchValue.length > 0"
@@ -110,7 +95,9 @@
               <span class="highlight">{{ data.SEQ.slice(-data.TS) }}</span>
             </a>
           </td>
-          <td nzCellControl="insideOf_genes'upstream_1k(+)">{{ data.gene }}</td>
+          <td nzCellControl="insideOf_genes_upstream_1k_plus">
+            {{ data.insideOf_genes_upstream_1k_plus }}
+          </td>
         </tr>
       </ng-template>
     </tbody>

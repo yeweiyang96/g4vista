@@ -1,32 +1,4 @@
 <form class="search-bar">
-  <mat-form-field appearance="outline" class="search-genome">
-    <mat-label>Genome</mat-label>
-    <input
-      matInput
-      #searchGenome
-      aria-label="Genome"
-      id="search-genome-input"
-      placeholder="Pick one"
-      type="search"
-      (keyup)="searchGenomeInput(searchGenome.value)"
-      [matAutocomplete]="auto"
-      required />
-    <mat-autocomplete #auto="matAutocomplete">
-      @for (one of resultGenome$ | async; track one.abbreviation) {
-        <mat-option [value]="one.genome" (click)="onClick(one)">
-          <div mat-line>{{ one.genome }}</div>
-          <span mat-line class="no-match"> {{ one.abbreviation }}</span>
-        </mat-option>
-      }
-      <!-- @if (resultGenome$.length === 0) {
-        <mat-option>
-          <mat-icon>error</mat-icon>
-          <div mat-line>0 results</div>
-          <div mat-line class="no-match">No matching presidents</div>
-        </mat-option>
-      } -->
-    </mat-autocomplete>
-  </mat-form-field>
   <mat-form-field appearance="outline" class="search-gene">
     <mat-label for="search-box">Gene</mat-label>
     <input
@@ -37,7 +9,6 @@
       placeholder="Pick one"
       (keyup)="searchGeneInput(searchGene.value)"
       type="search"
-      [disabled]="!searchGenome.value"
       [matAutocomplete]="autoSecond" />
     <mat-autocomplete #autoSecond="matAutocomplete">
       @for (one of resultGene$ | async; track one) {

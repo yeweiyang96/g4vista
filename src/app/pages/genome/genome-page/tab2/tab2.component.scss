@@ -50,4 +50,48 @@
   .flex-column {
     flex-direction: column;
   }
+  .container-small {
+    padding: 0;
+    margin: 0;
+  }
 }
+
+.top-left {
+  margin: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+
+}
+
+.chromosome-list {
+  height: 300px;
+  width: 100%;
+  border: 1px solid #ccc;
+  color: rgba(0, 0, 0, 0.87);
+  overflow: auto;
+  border-radius: 4px;
+  padding: 1rem;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  height: 100%;
+  padding: 0 1rem;
+}
+.section {
+  margin-top: 0.5rem;
+}
+
+.chart-skeleton {
+  margin-top: 4rem;
+}
+.table-skeleton {
+  margin-top: 2rem;
+
+}
+
+

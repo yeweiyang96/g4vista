@@ -1,13 +1,16 @@
 <div class="chart-container chart-container-column">
   @if (isLoading) {
-    <mat-spinner class="spinner"></mat-spinner>
-    <h1 class="spinner-text">Chart Loading...</h1>
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
+      <h1>Chart Loading...</h1>
+    </div>
   }
   <div
     id="vega-view"
     class="vega-container"
     (wheel)="onWheel($event)"
     #vega></div>
+
   <div class="chart-settings chart-settings-container">
     <mat-form-field appearance="outline">
       <mat-label>Bin step size(bp)</mat-label>
@@ -36,7 +39,7 @@
       ) {
         <mat-error
           >The input value must be less than or equal to
-          <strong>{{ chromosome.length }}</strong></mat-error
+          <strong>{{ chromosome().length }}</strong></mat-error
         >
       }
       @if (
@@ -56,7 +59,7 @@
     </div>
     <mat-slider
       min="{{ step.value }}"
-      max="{{ chromosome.length }}"
+      max="{{ chromosome().length }}"
       step="{{ step.value }}">
       <input
         matSliderThumb
@@ -69,10 +72,10 @@
       <mat-label>Number of tetrads</mat-label>
       <mat-select
         multiple
-        [value]="toppingList"
+        [value]="chromosome().layers_list"
         [formControl]="toppings"
         (selectionChange)="onSelectChange()">
-        @for (topping of toppingList; track topping) {
+        @for (topping of chromosome().layers_list; track topping) {
           <mat-option [value]="topping">{{ topping }} Tetrads</mat-option>
         }
       </mat-select>

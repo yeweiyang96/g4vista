@@ -5,6 +5,7 @@
 @use "./app/pages/homepage/homepage-theme";
 @use "./app/shared/footer/footer-theme";
 @use './app/pages/not-found/not-found-theme';
+
 @mixin theme($theme) {
   // @include svg-theme.theme($theme);
   @include header-theme.theme($theme);

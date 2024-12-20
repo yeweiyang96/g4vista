@@ -1,9 +1,8 @@
 .spinner {
-  position: absolute;
-}
-.spinner-text {
-  position: absolute;
-
+  position:fixed;
+  top:50%;
+  left: 50%;
+  z-index: 100;
 }
 
 .chart-settings {
@@ -30,6 +29,7 @@ mat-slider {
   flex-direction: row;
   justify-content: flex-end;
   margin-right: 2rem;
+  margin-top: 0.5rem;
 }
 @media (max-width: 1500px){
   .chart-container-column {

@@ -8,5 +8,5 @@ export interface G4 {
   TS: number;
   GS: number;
   SEQ: string;
-  gene: string;
+  insideOf_genes_upstream_1k_plus: string;
 }

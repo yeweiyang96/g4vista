@@ -1,21 +1,26 @@
 <div class="main">
-  <h1>{{ data.genome }}</h1>
-  <mat-tab-group dynamicHeight preserveContent>
-    <mat-tab label="Genome info">
-      <div>
-        <p>Genome: {{ data.genome }}</p>
-      </div>
-      <span
-        >填充一些此物种的关于G4的统计结果和性状(togogenome),以及基因组的信息,以及来源</span
-      >
-    </mat-tab>
-    <mat-tab label="G4 Data">
-      <ng-template matTabContent>
-        <app-tab2
-          [abbreviation]="abbreviation"
-          [chromosomeList]="data.chromosome_list"></app-tab2>
-      </ng-template>
-    </mat-tab>
-    <!-- <mat-tab label="Third"> Content 3 </mat-tab> -->
-  </mat-tab-group>
+  @if (data()) {
+    <h1 #title>{{ data().genome }}</h1>
+    <mat-tab-group dynamicHeight preserveContent>
+      <mat-tab label="Genome">
+        <div>
+          <p>Genome: {{ data().genome }}</p>
+        </div>
+        <span
+          >填充一些此物种的关于G4的统计结果和性状(togogenome),以及基因组的信息,以及来源</span
+        >
+      </mat-tab>
+      <mat-tab label="Chromosome">
+        <ng-template matTabContent>
+          <app-tab2
+            [abbreviation]="abbreviation()"
+            [chromosome_list]="data().chromosome_list"></app-tab2>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
+  } @else {
+    <div class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+  }
 </div>

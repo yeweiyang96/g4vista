@@ -26,15 +26,15 @@ export class SearchApiService {
       `${this.apiUrl}/${databaseName}/genome?item=${search} `
     );
   }
-  search_gene(search: string[]): Observable<string[]> {
-    if (!search[1].trim()) {
+  search_gene(search: string): Observable<string[]> {
+    if (!search.trim()) {
       return of([]);
-    } else if (search[1].length < 2) {
+    } else if (search.length < 2) {
       return of([]);
     }
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http.get<string[]>(
-      `${this.apiUrl}/${databaseName}/gene/?genome=${search[0]},search=${search[1]} `
+      `${this.apiUrl}/${databaseName}/gene/?search=${search} `
     );
   }
 }

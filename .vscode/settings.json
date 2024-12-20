@@ -1,5 +1,5 @@
 {
-  "editor.fontSize": 15,
+  "editor.fontSize": 17,
 
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -19,7 +19,7 @@
   "editor.inlineSuggest.enabled": true,
   "workbench.colorTheme": "One Dark Pro Darker",
   "window.autoDetectColorScheme": true,
-  "workbench.preferredDarkColorTheme": "Default Dark Modern",
+  "workbench.preferredDarkColorTheme": "One Dark Pro Darker",
   "workbench.preferredLightColorTheme": "Default Light Modern",
   "git.ignoreLimitWarning": true
 }

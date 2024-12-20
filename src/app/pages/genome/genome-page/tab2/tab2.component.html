@@ -1,12 +1,4 @@
 <!--Jbrowse-->
-<div class="jbowse-button-container" cdkDrag>
-  <button mat-fab extended (click)="openDialog()">
-    <mat-icon>
-      {{ isOpen ? 'visibility' : 'visibility_off' }}
-    </mat-icon>
-    Jbrowse
-  </button>
-</div>
 <ng-template>
   <div
     class="example-dialog-content"
@@ -17,35 +9,66 @@
       <svg height="32px" fill="none" viewBox="0 0 24 24"></svg>
     </div>
     <app-jbrowse
-      [abbreviation]="abbreviation"
-      [locString]="locString"></app-jbrowse>
+      [abbreviation]="abbreviation()"
+      [chromosome]="current_chromosome"></app-jbrowse>
   </div>
 </ng-template>
 <!--Jbrowse-->
 
-<div class="flex-container flex-column">
-  <div class="chromosome-list">
-    <mat-action-list>
-      @for (chromosome of chromosomeList; track chromosome) {
-        <button mat-list-item (click)="changeChromosome(chromosome)">
-          {{ chromosome }}
-        </button>
-      }
-    </mat-action-list>
-    <section>
-      <mat-button-toggle-group [formControl]="g4_type" aria-label="G4 Type">
-        <mat-button-toggle value="g">G-Rich</mat-button-toggle>
-        <mat-button-toggle value="c">C-Rich</mat-button-toggle>
-      </mat-button-toggle-group>
-    </section>
-  </div>
-  <app-chart
-    [abbreviation]="abbreviation"
-    [chromosome]="chromosome"
-    [type]="g4_type.value"></app-chart>
-</div>
+<div class="container container-small">
+  <div class="flex-container flex-column">
+    <div class="top-left">
+      <h1>{{ current_chromosome }}</h1>
 
-<app-g4-table
-  [abbreviation]="abbreviation"
-  [chromosome]="chromosome"
-  [g4_type]="g4_type.value"></app-g4-table>
+      <mat-action-list class="chromosome-list">
+        <mat-form-field appearance="outline">
+          <mat-label>Chromosome</mat-label>
+          <input
+            matInput
+            [placeholder]="'Chromosome'"
+            [formControl]="chromosome_filter"
+            [value]="chromosome_list()[0]" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        @for (chr of chromosomeList$ | async; track chr) {
+          <button mat-list-item (click)="changeChromosome(chr)">
+            {{ chr }}
+          </button>
+        }
+      </mat-action-list>
+      <section class="section">
+        <mat-button-toggle-group [formControl]="g4_type" aria-label="G4 Type">
+          <mat-button-toggle value="g">G-Rich</mat-button-toggle>
+          <mat-button-toggle value="c">C-Rich</mat-button-toggle>
+        </mat-button-toggle-group>
+      </section>
+    </div>
+    @if (isG4()) {
+      <app-chart [chromosome]="chromosome" [g4]="g4_data"></app-chart>
+    } @else {
+      <nz-skeleton
+        [nzActive]="true"
+        [nzParagraph]="{ rows: 10 }"
+        [nzTitle]="false"
+        class="chart-skeleton"></nz-skeleton>
+    }
+  </div>
+  @if (isG4()) {
+    <app-g4-table [chromosome_name]="current_chromosome" [g4]="g4_data">
+    </app-g4-table>
+    <div class="jbowse-button-container" cdkDrag>
+      <button mat-fab extended (click)="openJbrowse()">
+        <mat-icon>
+          {{ isOpen ? 'visibility' : 'visibility_off' }}
+        </mat-icon>
+        Jbrowse
+      </button>
+    </div>
+  } @else {
+    <nz-skeleton
+      [nzActive]="true"
+      [nzParagraph]="{ rows: 8 }"
+      [nzTitle]="false"
+      class="table-skeleton"></nz-skeleton>
+  }
+</div>

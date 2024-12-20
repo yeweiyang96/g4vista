@@ -1,12 +1,10 @@
 import {
   Component,
-  Input,
-  OnDestroy,
   OnInit,
   ViewChild,
+  input,
+  effect,
   ChangeDetectorRef,
-  SimpleChanges,
-  OnChanges,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -25,8 +23,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { G4 } from '../../../../../shared/dataclass/G4';
-import { Subject } from 'rxjs';
-import { GetG4Service } from './get-g4-data-api.service';
+
 import { JbrowseService } from '../jbrowse/jbrowse.service';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {
@@ -36,12 +33,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Chromosome } from '../../../../../shared/dataclass/Chromosome';
-
 interface CustomColumn extends NzCustomColumn {
   name: string;
   required?: boolean;
@@ -70,25 +63,19 @@ interface CustomColumn extends NzCustomColumn {
     CdkDropList,
     MatIconModule,
     MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
   ],
   templateUrl: './g4-table.component.html',
   styleUrl: './g4-table.component.scss',
 })
-export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
+export class G4TableComponent implements OnInit {
   @ViewChild('virtualTable', { static: false })
   nzTableComponent?: NzTableComponent<G4>;
-  @Input()
-  abbreviation!: string;
-  @Input()
-  chromosome!: Chromosome;
-  @Input() g4_type = 'g';
-  private destroy$ = new Subject<boolean>();
+  chromosome_name = input.required<string>();
+  g4 = input.required<G4[]>();
   listOfData: G4[] = [];
   listOfDisplayData: G4[] = [];
   loading = true;
-  isOpen = false;
+  // isOpen = false;
   // 跳转值
   scrollIndex = 1;
 
@@ -98,7 +85,6 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
   footer: CustomColumn[] = [];
   fix: CustomColumn[] = [];
   notFix: CustomColumn[] = [];
-
   customColumn: CustomColumn[] = [
     {
       name: 'Start',
@@ -131,10 +117,13 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
       default: true,
       width: 100,
       sortOrder: null,
-      sortFn: (a: G4, b: G4) => a.T1 - b.T1,
+      sortFn: (a: G4, b: G4) => a.TS - b.TS,
       listOfFilter: [
         { text: '2', value: '2' },
         { text: '3', value: '3' },
+        { text: '4', value: '4' },
+        { text: '5', value: '5' },
+        { text: '6', value: '6' },
       ],
       filterMultiple: true,
       filterFn: (list: string[], item: G4) => list.some(v => item.TS === +v),
@@ -143,7 +132,7 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
       name: 'G-Score',
       value: 'G-Score',
       default: true,
-      width: 100,
+      width: 10,
       sortOrder: null,
       sortFn: (a: G4, b: G4) => a.GS - b.GS,
       listOfFilter: [],
@@ -162,9 +151,9 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
       filterMultiple: true,
     },
     {
-      name: "insideOf_genes'upstream_1k(+)",
-      value: "insideOf_genes'upstream_1k(+)",
-      default: false,
+      name: 'insideOf_genes_upstream_1k_plus',
+      value: 'insideOf_genes_upstream_1k_plus',
+      default: true,
       width: 100,
       sortOrder: null,
       sortFn: null,
@@ -175,10 +164,14 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
   ];
 
   constructor(
-    private getG4DataService: GetG4Service,
     private jbrowseService: JbrowseService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    effect(() => {
+      this.loading = false;
+      this.listOfDisplayData = this.listOfData = this.g4();
+    });
+  }
 
   scrollToIndex(index: number): void {
     this.nzTableComponent?.cdkVirtualScrollViewport?.scrollToIndex(index);
@@ -189,7 +182,7 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onClick(location: string) {
-    this.jbrowseService.setState(this.chromosome + ':' + location);
+    this.jbrowseService.setState(this.chromosome_name() + ':' + location);
   }
 
   ngOnInit(): void {
@@ -204,30 +197,6 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
       item => !item.default && !item.required
     );
   }
-  ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    if (
-      changes['g4_type'] ||
-      changes['chromosome'] ||
-      changes['abbreviation']
-    ) {
-      this.getG4DataService
-        .getG4Data(this.abbreviation, this.chromosome.name, this.g4_type)
-        .subscribe(data => {
-          this.listOfData = data;
-          this.listOfDisplayData = data;
-          this.loading = false;
-          this.cdr.markForCheck(); // 手动检查变化, 使得数据更新
-          this.jbrowseService.setState(this.abbreviation);
-        });
-    }
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.complete();
-  }
 
   searchValue = '';
   visible = false;
@@ -240,8 +209,10 @@ export class G4TableComponent implements OnInit, OnDestroy, OnChanges {
   search(): void {
     this.visible = false;
     this.listOfDisplayData = this.listOfData.filter((item: G4) => {
-      if (item.gene) {
-        return item.gene.indexOf(this.searchValue) !== -1;
+      if (item.insideOf_genes_upstream_1k_plus) {
+        return (
+          item.insideOf_genes_upstream_1k_plus.indexOf(this.searchValue) !== -1
+        );
       }
       return false;
     });

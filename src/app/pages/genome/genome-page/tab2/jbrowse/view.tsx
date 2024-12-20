@@ -86,7 +86,8 @@ const View: React.FC<ViewProps> = ({ assemblyName, locString }) => {
     state.session.view.showTrack('g4_c')
     setViewState(state)
     const subscription = onStateChange((locString) => {
-      state.session.view.navToLocString(locString);
+      console.log('sub:', locString, assemblyName);
+      state.session.view.navToLocString(locString,assemblyName);
     });
 
     const style = document.createElement('style');
@@ -107,12 +108,6 @@ const View: React.FC<ViewProps> = ({ assemblyName, locString }) => {
   if (!viewState) {
     return null
   }
-  // if (locString) {
-  //   console.log('location:', locString);
-  //   viewState.session.view.navToLocString(locString);
-  //   // viewState.session.view.addToHighlights( location as Required<ParsedLocString>);
-  // }
-
 
   return (
     <React.StrictMode>

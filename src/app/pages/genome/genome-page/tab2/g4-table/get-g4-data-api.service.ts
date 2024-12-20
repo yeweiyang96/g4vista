@@ -38,6 +38,15 @@ export class GetG4Service {
             header: true, // 表示第一行为标题
             skipEmptyLines: true, // 跳过空行
             dynamicTyping: true, // 自动转换数据类型
+            transformHeader: function (header) {
+              // 移除引号和括号
+              const newHeader = header
+                .replace(/'/g, '_')
+                .replace(/\(\+\)/g, '_plus')
+                .replace(/\(-\)/g, '_minus');
+
+              return newHeader;
+            },
           });
           return result.data; // 返回解析后的对象数组
         })

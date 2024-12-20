@@ -4,7 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist/g4vista",
+    "public": "dist/g4vista/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

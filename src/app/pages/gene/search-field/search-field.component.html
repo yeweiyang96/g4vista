@@ -11,18 +11,27 @@
       type="search"
       [matAutocomplete]="autoSecond" />
     <mat-autocomplete #autoSecond="matAutocomplete">
-      @for (one of resultGene$ | async; track one) {
-        <mat-option [value]="one" (click)="navTo(one)">
-          <div mat-line>{{ one }}</div>
-        </mat-option>
+      @if (resultGene$ | async; as resultGene) {
+        @if (resultGene.length > 0) {
+          @for (one of resultGene; track one) {
+            <mat-option [value]="one.name" (click)="navTo(one)">
+              <div mat-line>{{ one.name }}</div>
+              <span mat-line class="no-match">
+                {{ one.abbreviation }}:{{ one.chromosome }}</span
+              >
+            </mat-option>
+          }
+        } @else {
+          <mat-option>
+            <mat-icon>error</mat-icon>
+            <div mat-line>0 results</div>
+            <span mat-line class="no-match">
+              No matching presidents found (keywords must contain at least 2
+              characters)
+            </span>
+          </mat-option>
+        }
       }
-      <!-- @if ((resultGene$ | async)?.length === 0) {
-        <mat-option>
-          <mat-icon>error</mat-icon>
-          <div mat-line>0 results</div>
-          <div mat-line class="no-match">No matching presidents</div>
-        </mat-option>
-      } -->
     </mat-autocomplete>
   </mat-form-field>
 </form>

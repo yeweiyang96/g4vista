@@ -9,21 +9,24 @@
     type="search"
     [matAutocomplete]="auto" />
   <mat-autocomplete #auto="matAutocomplete">
-    @for (one of result$ | async; track one.abbreviation) {
-      <mat-option [value]="one.abbreviation" (click)="onClick(one)">
-        <div mat-line>{{ one.genome }}</div>
-        <span mat-line class="no-match"> {{ one.abbreviation }}</span>
-      </mat-option>
-    }
-    @if ((result$ | async)?.length === 0) {
-      <mat-option>
-        <mat-icon>error</mat-icon>
-        <div mat-line>0 results</div>
-        <div mat-line class="no-match">
-          No matching presidents found (keywords must contain at least 2
-          characters)
-        </div>
-      </mat-option>
+    @if (result$ | async; as result) {
+      @if (result.length > 0) {
+        @for (one of result; track one.abbreviation) {
+          <mat-option [value]="one.abbreviation" (click)="onClick(one)">
+            <div mat-line>{{ one.genome }}</div>
+            <span mat-line class="no-match"> {{ one.abbreviation }}</span>
+          </mat-option>
+        }
+      } @else {
+        <mat-option>
+          <mat-icon>error</mat-icon>
+          <div mat-line>0 results</div>
+          <span mat-line class="no-match">
+            No matching presidents found (keywords must contain at least 2
+            characters)
+          </span>
+        </mat-option>
+      }
     }
   </mat-autocomplete>
 </mat-form-field>

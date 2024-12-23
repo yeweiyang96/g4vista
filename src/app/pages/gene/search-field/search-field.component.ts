@@ -13,6 +13,7 @@ import {
 } from 'rxjs';
 import { SearchApiService } from '../../../shared/service/search-api.service';
 import { Router } from '@angular/router';
+import { GeneResult } from '../../../shared/dataclass/Search';
 
 @Component({
   selector: 'app-search-field',
@@ -28,7 +29,7 @@ import { Router } from '@angular/router';
   styleUrl: './search-field.component.scss',
 })
 export class SearchFieldComponent implements OnInit {
-  resultGene$!: Observable<string[]>;
+  resultGene$!: Observable<GeneResult[]>;
 
   private searchGeneTerms = new Subject<string>();
 
@@ -49,7 +50,8 @@ export class SearchFieldComponent implements OnInit {
     this.searchGeneTerms.next(term);
   }
 
-  navTo(result: string) {
+  navTo(result: GeneResult) {
     this.Router.navigate(['/gene', result]);
+    // this.Router.navigate(['/genome/']);
   }
 }

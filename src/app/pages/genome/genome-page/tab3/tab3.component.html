@@ -1,0 +1,17 @@
+<h2>{{ selected_chromosome() }}</h2>
+@if (gene$ | async; as gene) {
+  <div class="gene">
+    <h3>{{ gene.name }}</h3>
+    <app-search-field></app-search-field>
+    <p>{{ gene.abbreviation }}</p>
+    <p>{{ gene.chromosome }}</p>
+    <p>{{ gene.start }}</p>
+    <p>{{ gene.end }}</p>
+    <p>{{ gene.dir }}</p>
+    <p>{{ gene.gene }}</p>
+  </div>
+} @else {
+  <div class="loading">
+    <mat-spinner></mat-spinner>
+  </div>
+}

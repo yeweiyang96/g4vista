@@ -6,7 +6,6 @@
   </div>
   <nz-table
     #virtualTable
-    #smallTable
     nzSize="small"
     [nzBordered]="true"
     [nzVirtualItemSize]="20"
@@ -51,6 +50,82 @@
         <th nzCellControl="SEQ">SEQ</th>
         <th nzCellControl="insideOf_genes_upstream_1k_plus" nzCustomFilter>
           insideOf_genes_upstream_1k_plus
+          <nz-filter-trigger
+            [(nzVisible)]="visible1"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzCellControl="insideOf_gene_plus" nzCustomFilter>
+          insideOf_gene_plus
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th
+          nzCellControl="partOverlapWith_gene_plus_upstreamEnd"
+          nzCustomFilter>
+          partOverlapWith_gene_plus_upstreamEnd
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th
+          nzCellControl="partOverlapWith_gene_plus_downstreamEnd"
+          nzCustomFilter>
+          partOverlapWith_gene_plus_downstreamEnd
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzCellControl="insideOf_genes_upstream_2k_plus" nzCustomFilter>
+          insideOf_genes_upstream_2k_plus
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzCellControl="insideOf_genes_upstream_3k_plus" nzCustomFilter>
+          insideOf_genes_upstream_3k_plus
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzCellControl="insideOf_genes_upstream_4k_plus" nzCustomFilter>
+          insideOf_genes_upstream_4k_plus
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzCellControl="insideOf_genes_downstream_1k_plus" nzCustomFilter>
+          insideOf_genes_downstream_1k_plus
+          <nz-filter-trigger
+            [(nzVisible)]="visible"
+            [nzActive]="searchValue.length > 0"
+            [nzDropdownMenu]="menu">
+            <span nz-icon nzType="search"></span>
+          </nz-filter-trigger>
+        </th>
+        <th nzCellControl="insideOf_genes_downstream_5k_minus" nzCustomFilter>
+          insideOf_genes_downstream_5k_minus
           <nz-filter-trigger
             [(nzVisible)]="visible"
             [nzActive]="searchValue.length > 0"
@@ -98,6 +173,81 @@
           <td nzCellControl="insideOf_genes_upstream_1k_plus">
             {{ data.insideOf_genes_upstream_1k_plus }}
           </td>
+          <td nzCellControl="insideOf_gene_plus">
+            {{ data.insideOf_gene_plus }}
+          </td>
+          <td nzCellControl="partOverlapWith_gene_plus_upstreamEnd">
+            {{ data.partOverlapWith_gene_plus_upstreamEnd }}
+          </td>
+          <td nzCellControl="partOverlapWith_gene_plus_downstreamEnd">
+            {{ data.partOverlapWith_gene_plus_downstreamEnd }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_2k_plus">
+            {{ data.insideOf_genes_upstream_2k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_3k_plus">
+            {{ data.insideOf_genes_upstream_3k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_4k_plus">
+            {{ data.insideOf_genes_upstream_4k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_5k_plus">
+            {{ data.insideOf_genes_upstream_5k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_1k_plus">
+            {{ data.insideOf_genes_downstream_1k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_2k_plus">
+            {{ data.insideOf_genes_downstream_2k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_3k_plus">
+            {{ data.insideOf_genes_downstream_3k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_4k_plus">
+            {{ data.insideOf_genes_downstream_4k_plus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_5k_plus">
+            {{ data.insideOf_genes_downstream_5k_plus }}
+          </td>
+          <td nzCellControl="insideOf_gene_minus">
+            {{ data.insideOf_gene_minus }}
+          </td>
+          <td nzCellControl="partOverlapWith_gene_minus_upstreamEnd">
+            {{ data.partOverlapWith_gene_minus_upstreamEnd }}
+          </td>
+          <td nzCellControl="partOverlapWith_gene_minus_downstreamEnd">
+            {{ data.partOverlapWith_gene_minus_downstreamEnd }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_1k_minus">
+            {{ data.insideOf_genes_upstream_1k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_2k_minus">
+            {{ data.insideOf_genes_upstream_2k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_3k_minus">
+            {{ data.insideOf_genes_upstream_3k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_4k_minus">
+            {{ data.insideOf_genes_upstream_4k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_upstream_5k_minus">
+            {{ data.insideOf_genes_upstream_5k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_1k_minus">
+            {{ data.insideOf_genes_downstream_1k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_2k_minus">
+            {{ data.insideOf_genes_downstream_2k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_3k_minus">
+            {{ data.insideOf_genes_downstream_3k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_4k_minus">
+            {{ data.insideOf_genes_downstream_4k_minus }}
+          </td>
+          <td nzCellControl="insideOf_genes_downstream_5k_minus">
+            {{ data.insideOf_genes_downstream_5k_minus }}
+          </td>
         </tr>
       </ng-template>
     </tbody>
@@ -109,7 +259,7 @@
           type="text"
           nz-input
           placeholder="Search gene"
-          [(ngModel)]="searchValue" />
+          [(ngModel)]="searchValue1" />
         <button
           nz-button
           nzSize="small"

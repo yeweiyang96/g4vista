@@ -6,6 +6,7 @@ import { GenomeInfo } from '../../../shared/dataclass/Genome';
 import { Chromosome } from '../../../shared/dataclass/Chromosome';
 import Papa from 'papaparse';
 import { G4 } from '../../../shared/dataclass/G4';
+import { Gene } from '../../../shared/dataclass/Gene';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,7 +31,7 @@ export class GetGenomeService {
   ): Observable<Chromosome> {
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http.get<Chromosome>(
-      `${this.apiUrl}/${databaseName}/${abbreviation}/${chromosome}/${g4_type}`
+      `${this.apiUrl}/${databaseName}/${abbreviation}/${chromosome}?gc=${g4_type}`
     );
   }
   getG4Data(
@@ -41,7 +42,7 @@ export class GetGenomeService {
     const databaseName = this.dataSourceStorageService.getStoredSource();
     return this.http
       .get(
-        `${this.apiUrl}/${databaseName}/g4/${abbreviation}/${chromosome}/${type}`,
+        `${this.apiUrl}/${databaseName}/g4/${abbreviation}/${chromosome}?gc=${type}`,
         {
           responseType: 'text',
         }
@@ -66,5 +67,15 @@ export class GetGenomeService {
           return result.data; // 返回解析后的对象数组
         })
       );
+  }
+  getGene(
+    abbreviation: string,
+    chromosome: string,
+    gene: string = '-1'
+  ): Observable<Gene> {
+    const databaseName = this.dataSourceStorageService.getStoredSource();
+    return this.http.get<Gene>(
+      `${this.apiUrl}/${databaseName}/${abbreviation}/${chromosome}/${gene}`
+    );
   }
 }

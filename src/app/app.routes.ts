@@ -23,13 +23,27 @@ export const routes: Routes = [
         m => m.GenomePageComponent
       ),
   },
-
   {
     path: 'gene',
     loadComponent: () =>
       import('./pages/gene/gene.component').then(m => m.GeneComponent),
     title: 'Gene Search-G4Vista',
   },
+  {
+    path: 'genome/:abbreviation/:chromosome$',
+    loadComponent: () =>
+      import('./pages/genome/genome-page/genome-page.component').then(
+        m => m.GenomePageComponent
+      ),
+  },
+  {
+    path: 'genome/:abbreviation/:chromosome$/:gene$',
+    loadComponent: () =>
+      import('./pages/genome/genome-page/genome-page.component').then(
+        m => m.GenomePageComponent
+      ),
+  },
+
   {
     path: 'environment',
     loadComponent: () =>

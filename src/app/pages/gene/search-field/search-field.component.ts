@@ -51,7 +51,12 @@ export class SearchFieldComponent implements OnInit {
   }
 
   navTo(result: GeneResult) {
-    this.Router.navigate(['/gene', result]);
+    this.Router.navigate([
+      '/genome',
+      result.abbreviation,
+      result.chromosome,
+      result.name,
+    ]);
     // this.Router.navigate(['/genome/']);
   }
 }

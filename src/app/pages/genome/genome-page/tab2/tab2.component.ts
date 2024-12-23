@@ -72,6 +72,7 @@ export class Tab2Component implements AfterViewInit, OnDestroy, OnInit {
 
   readonly abbreviation = input.required<string>();
   readonly chromosome_list = input.required<string[]>();
+  readonly selected_chromosome = input.required<string>();
   g4_type: FormControl = new FormControl('g');
   chromosomeList$!: Observable<string[]>;
   chromosome!: Chromosome;
@@ -91,7 +92,7 @@ export class Tab2Component implements AfterViewInit, OnDestroy, OnInit {
 
   ngOnInit() {
     // default value
-    this.current_chromosome = this.chromosome_list()[0];
+    this.current_chromosome = this.selected_chromosome();
     // subscribe to the value change of the chromosome filter
     this.chromosomeList$ = this.chromosome_filter.valueChanges.pipe(
       startWith(''),
@@ -157,7 +158,9 @@ export class Tab2Component implements AfterViewInit, OnDestroy, OnInit {
     this.getG4();
   }
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, {
+      duration: 3000,
+    });
   }
   getG4Data() {
     this.getGenomeService

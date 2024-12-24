@@ -11,9 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
       - run: npm install -g @angular/cli
-      - run: npm install --legacy-peer-deps
-      - run: npm run build
+      - run: pnpm install
+      - run: ng build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

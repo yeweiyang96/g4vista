@@ -15,7 +15,12 @@
         @if (resultGene.length > 0) {
           @for (one of resultGene; track one) {
             <mat-option [value]="one.name" (click)="navTo(one)">
-              <div mat-line>{{ one.name }}</div>
+              <div mat-line>
+                {{ one.name }}
+                @if (one.gene) {
+                  ({{ one.gene }})
+                }
+              </div>
               <span mat-line class="no-match">
                 {{ one.abbreviation }}:{{ one.chromosome }}</span
               >
@@ -26,7 +31,7 @@
             <mat-icon>error</mat-icon>
             <div mat-line>0 results</div>
             <span mat-line class="no-match">
-              No matching presidents found (keywords must contain at least 2
+              No matching presidents found (keywords must contain at least 3
               characters)
             </span>
           </mat-option>

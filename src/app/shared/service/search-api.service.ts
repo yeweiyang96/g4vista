@@ -29,7 +29,7 @@ export class SearchApiService {
   search_gene(search: string): Observable<GeneResult[]> {
     if (!search.trim()) {
       return of([]);
-    } else if (search.length < 2) {
+    } else if (search.length < 3) {
       return of([]);
     }
     const databaseName = this.dataSourceStorageService.getStoredSource();

@@ -1,15 +1,103 @@
-<h2>{{ selected_chromosome() }}</h2>
+<div class="search-bar"><app-search-field></app-search-field></div>
+
 @if (gene$ | async; as gene) {
-  <div class="gene">
-    <h3>{{ gene.name }}</h3>
-    <app-search-field></app-search-field>
-    <p>{{ gene.abbreviation }}</p>
-    <p>{{ gene.chromosome }}</p>
-    <p>{{ gene.start }}</p>
-    <p>{{ gene.end }}</p>
-    <p>{{ gene.dir }}</p>
-    <p>{{ gene.gene }}</p>
-  </div>
+  <mat-card class="card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>{{ gene.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item>
+          <span matListItemTitle>Gene: </span>
+          <span matListItemLine>{{ gene.gene }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>Gene Locus Tag: </span>
+          <span matListItemLine>{{ gene.name }}</span>
+        </mat-list-item>
+        <mat-list-item>
+          <span matListItemTitle>Gene Type: </span>
+          <span matListItemLine>{{ gene.type }}</span>
+        </mat-list-item>
+        @if (gene.dir === 1) {
+          <mat-list-item>
+            <span matListItemTitle>Gene Location: </span>
+            <span matListItemLine
+              >{{ selected_chromosome() }}: {{ gene.start }} -
+              {{ gene.end }}</span
+            >
+          </mat-list-item>
+        } @else {
+          <mat-list-item>
+            <span matListItemTitle> Gene Location: </span>
+            <span matListItemLine
+              >{{ selected_chromosome() }}:complement({{ gene.start }} -
+              {{ gene.end }})
+            </span>
+          </mat-list-item>
+        }
+      </mat-list>
+      <mat-divider></mat-divider>
+      @for (pos of positions; track $index) {
+        <div>
+          <h3>{{ removeUnderscores(pos) }}:</h3>
+          <!-- <span> {{ gene[pos] | json }}</span> -->
+          @if (gene[pos].length === 0) {
+            <p>No data available</p>
+          } @else {
+            <mat-table [dataSource]="gene[pos]" class="mat-elevation-z3">
+              <ng-container matColumnDef="T1">
+                <th mat-header-cell *matHeaderCellDef>T1</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.T1 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="T2">
+                <th mat-header-cell *matHeaderCellDef>T2</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.T2 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="T3">
+                <th mat-header-cell *matHeaderCellDef>T3</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.T3 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="T4">
+                <th mat-header-cell *matHeaderCellDef>T4</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.T4 }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="TS">
+                <th mat-header-cell *matHeaderCellDef>Number of tetrads</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.TS }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="GS">
+                <th mat-header-cell *matHeaderCellDef>G-Score</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.GS }}
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="SEQ">
+                <th mat-header-cell *matHeaderCellDef>SEQ</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.SEQ }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </mat-table>
+          }
+          <!-- <mat-divider></mat-divider> -->
+        </div>
+      }
+    </mat-card-content>
+    <mat-card-footer class="example-card-footer"> </mat-card-footer>
+  </mat-card>
 } @else {
   <div class="loading">
     <mat-spinner></mat-spinner>

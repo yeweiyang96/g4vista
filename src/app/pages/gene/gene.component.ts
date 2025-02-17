@@ -15,10 +15,10 @@ import { MatDivider } from '@angular/material/divider';
 export class GeneComponent implements OnInit {
   @HostBinding('class.main-content') readonly mainContentClass = true;
   examples = [
-    { name: 'Homo sapiens', abbreviation: 'hsa' },
-    { name: 'Example 2', abbreviation: 'abbreviation 2' },
-    { name: 'Example 3', abbreviation: 'abbreviation 3' },
-    { name: 'Example 1', abbreviation: 'abbreviation 1' },
+    { name: 'TP5', abbreviation: 'hsa' },
+    { name: 'gapA', abbreviation: 'abbreviation 2' },
+    { name: 'hlyA', abbreviation: 'abbreviation 3' },
+    { name: 'recA', abbreviation: 'abbreviation 1' },
     { name: 'Example 2', abbreviation: 'abbreviation 2' },
     { name: 'Example 3', abbreviation: 'abbreviation 3' },
   ];
@@ -26,7 +26,9 @@ export class GeneComponent implements OnInit {
   ngOnInit(): void {
     if (this.dataSourceStorage.getStoredSource() == 'mbgd') {
       this.examples = [
-        { name: 'Homo sapiens', abbreviation: 'hsa' },
+        { name: 'gapA', abbreviation: 'abbreviation 2' },
+        { name: 'hlyA', abbreviation: 'abbreviation 3' },
+        { name: 'recA', abbreviation: 'abbreviation 1' },
         { name: 'Example 2', abbreviation: 'abbreviation 2' },
         { name: 'Example 3', abbreviation: 'abbreviation 3' },
       ];

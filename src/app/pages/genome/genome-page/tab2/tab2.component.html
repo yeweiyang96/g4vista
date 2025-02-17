@@ -54,7 +54,10 @@
     }
   </div>
   @if (isG4()) {
-    <app-g4-table [chromosome_name]="current_chromosome" [g4]="g4_data">
+    <app-g4-table
+      [abbreviation]="abbreviation()"
+      [chromosome_name]="current_chromosome"
+      [g4]="g4_data">
     </app-g4-table>
     <div class="jbowse-button-container" cdkDrag>
       <button mat-fab extended (click)="openJbrowse()">

@@ -37,6 +37,11 @@ export interface Gene {
   [key: string]: any; // 添加字符串索引签名
 }
 
+export interface GeneLocation {
+  start: number;
+  end: number;
+}
+
 interface G4 {
   T1: number;
   T2: number;

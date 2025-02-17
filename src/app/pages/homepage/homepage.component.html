@@ -4,8 +4,10 @@
   id="homepage-header">
   <div class="docs-header-section">
     <div class="docs-header-headline">
-      <h1 class="mat-h1">G4 Vista</h1>
-      <h2>query quadruplex forming G-rich sequences in nucleotide sequences</h2>
+      <h1 class="mat-h1 text-shadow">G4 Vista</h1>
+      <h2 class="text-shadow">
+        query quadruplex forming G-rich sequences in nucleotide sequences
+      </h2>
     </div>
     <div class="docs-header-start">
       <a mat-raised-button class="docs-button" routerLink="/genome"
@@ -18,7 +20,7 @@
 <main class="docs-homepage-promo">
   <div class="docs-homepage-row docs-introduction">
     <div class="docs-homepage-row-column">
-      <h2>High quality</h2>
+      <h2 class="text-shadow">High quality</h2>
       <p>
         Internationalized and accessible function for everyone. Well tested to
         ensure performance and reliability.
@@ -26,7 +28,7 @@
       <p>Straightforward APIs with consistent cross platform behaviour.</p>
     </div>
     <div class="docs-homepage-row-column">
-      <h2>Versatile</h2>
+      <h2 class="text-shadow">Versatile</h2>
       <p>
         Provide tools that help users build their own custom results with common
         interaction patterns.
@@ -34,7 +36,7 @@
       <p>Customizable within the bounds of the Design specification.</p>
     </div>
     <div class="docs-homepage-row-column">
-      <h2>Visualization</h2>
+      <h2 class="text-shadow">Visualization</h2>
       <p>
         Built by the Medical AI Center to integrate seamlessly with Angular.
       </p>
@@ -50,21 +52,15 @@
   <div class="docs-homepage-featured-components docs-homepage-carousel-row">
     <div class="docs-homepage-header">
       <h2>Featured Function</h2>
-      <ul>
-        <li>
-          Query a thermophilic bacterium to assess G4 abundance and genomic
-          distribution relative to environmental growth conditions.
-        </li>
-        <li>
-          Filter PQS based on G-score thresholds or the number of quadruplex
-          layers.
-        </li>
-        <li>
-          Visualize G4 motifs directly on the genome browser, overlaying gene
-          annotations and other genomic features.
-        </li>
-      </ul>
     </div>
+    <nz-carousel nzAutoPlay>
+      @for (index of array; track index) {
+        <div nz-carousel-content>
+          <img [src]="index.src" alt="Featured function image" class="img" />
+          <h3 class="img-title">{{ index.name }}</h3>
+        </div>
+      }
+    </nz-carousel>
   </div>
 </main>
 <app-footer></app-footer>

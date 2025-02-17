@@ -208,3 +208,29 @@ $margin-promotion-sections-small: 15px;
     margin: $margin-promotion-sections-small 0;
   }
 }
+
+
+[nz-carousel-content] {
+  text-align: center;
+   height: 400px;
+  width: 100%;
+  line-height: 50px;
+  color: #fff;
+  overflow: hidden;
+}
+
+.img-title {
+  // color: #000;
+  margin: 0;
+  user-select: none;
+  // text-shadow: 2px 2px 4px #000000;
+}
+
+.img{
+  width: 100%; /* 宽度充满父容器 */
+  object-fit: cover; /* 填充模式，裁剪多余部分 */
+  height: 400px;
+  border-radius: 8px; /* 可选：圆角效果 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: #989797;
+}

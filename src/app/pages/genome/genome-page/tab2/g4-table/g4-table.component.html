@@ -171,82 +171,442 @@
             </a>
           </td>
           <td nzCellControl="insideOf_genes_upstream_1k_plus">
-            {{ data.insideOf_genes_upstream_1k_plus }}
+            @if (data.insideOf_genes_upstream_1k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_1k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_gene_plus">
-            {{ data.insideOf_gene_plus }}
+            @if (data.insideOf_gene_plus) {
+              @for (
+                gene of convertStringToArray(data.insideOf_gene_plus);
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="partOverlapWith_gene_plus_upstreamEnd">
-            {{ data.partOverlapWith_gene_plus_upstreamEnd }}
+            @if (data.partOverlapWith_gene_plus_upstreamEnd) {
+              @for (
+                gene of convertStringToArray(
+                  data.partOverlapWith_gene_plus_upstreamEnd
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="partOverlapWith_gene_plus_downstreamEnd">
-            {{ data.partOverlapWith_gene_plus_downstreamEnd }}
+            @if (data.partOverlapWith_gene_plus_downstreamEnd) {
+              @for (
+                gene of convertStringToArray(
+                  data.partOverlapWith_gene_plus_downstreamEnd
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_2k_plus">
-            {{ data.insideOf_genes_upstream_2k_plus }}
+            @if (data.insideOf_genes_upstream_2k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_2k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_3k_plus">
-            {{ data.insideOf_genes_upstream_3k_plus }}
+            @if (data.insideOf_genes_upstream_3k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_3k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_4k_plus">
-            {{ data.insideOf_genes_upstream_4k_plus }}
+            @if (data.insideOf_genes_upstream_4k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_4k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_5k_plus">
-            {{ data.insideOf_genes_upstream_5k_plus }}
+            @if (data.insideOf_genes_upstream_5k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_5k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_1k_plus">
-            {{ data.insideOf_genes_downstream_1k_plus }}
+            @if (data.insideOf_genes_downstream_1k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_1k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_2k_plus">
-            {{ data.insideOf_genes_downstream_2k_plus }}
+            @if (data.insideOf_genes_downstream_2k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_2k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_3k_plus">
-            {{ data.insideOf_genes_downstream_3k_plus }}
+            @if (data.insideOf_genes_downstream_3k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_3k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_4k_plus">
-            {{ data.insideOf_genes_downstream_4k_plus }}
+            @if (data.insideOf_genes_downstream_4k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_4k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_5k_plus">
-            {{ data.insideOf_genes_downstream_5k_plus }}
+            @if (data.insideOf_genes_downstream_5k_plus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_5k_plus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_gene_minus">
-            {{ data.insideOf_gene_minus }}
+            @if (data.insideOf_gene_minus) {
+              @for (
+                gene of convertStringToArray(data.insideOf_gene_minus);
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="partOverlapWith_gene_minus_upstreamEnd">
-            {{ data.partOverlapWith_gene_minus_upstreamEnd }}
+            @if (data.partOverlapWith_gene_minus_upstreamEnd) {
+              @for (
+                gene of convertStringToArray(
+                  data.partOverlapWith_gene_minus_upstreamEnd
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="partOverlapWith_gene_minus_downstreamEnd">
-            {{ data.partOverlapWith_gene_minus_downstreamEnd }}
+            @if (data.partOverlapWith_gene_minus_downstreamEnd) {
+              @for (
+                gene of convertStringToArray(
+                  data.partOverlapWith_gene_minus_downstreamEnd
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_1k_minus">
-            {{ data.insideOf_genes_upstream_1k_minus }}
+            @if (data.insideOf_genes_upstream_1k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_1k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_2k_minus">
-            {{ data.insideOf_genes_upstream_2k_minus }}
+            @if (data.insideOf_genes_upstream_2k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_2k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_3k_minus">
-            {{ data.insideOf_genes_upstream_3k_minus }}
+            @if (data.insideOf_genes_upstream_3k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_3k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_4k_minus">
-            {{ data.insideOf_genes_upstream_4k_minus }}
+            @if (data.insideOf_genes_upstream_4k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_4k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_upstream_5k_minus">
-            {{ data.insideOf_genes_upstream_5k_minus }}
+            @if (data.insideOf_genes_upstream_5k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_upstream_5k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_1k_minus">
-            {{ data.insideOf_genes_downstream_1k_minus }}
+            @if (data.insideOf_genes_downstream_1k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_1k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_2k_minus">
-            {{ data.insideOf_genes_downstream_2k_minus }}
+            @if (data.insideOf_genes_downstream_2k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_2k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_3k_minus">
-            {{ data.insideOf_genes_downstream_3k_minus }}
+            @if (data.insideOf_genes_downstream_3k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_3k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_4k_minus">
-            {{ data.insideOf_genes_downstream_4k_minus }}
+            @if (data.insideOf_genes_downstream_4k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_4k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
           <td nzCellControl="insideOf_genes_downstream_5k_minus">
-            {{ data.insideOf_genes_downstream_5k_minus }}
+            @if (data.insideOf_genes_downstream_5k_minus) {
+              @for (
+                gene of convertStringToArray(
+                  data.insideOf_genes_downstream_5k_minus
+                );
+                track $index
+              ) {
+                <a
+                  (click)="navTo(gene)"
+                  tabindex="0"
+                  (keydown.enter)="navTo(gene)">
+                  {{ gene }}
+                </a>
+              }
+            }
           </td>
         </tr>
       </ng-template>

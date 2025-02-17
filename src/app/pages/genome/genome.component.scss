@@ -19,6 +19,10 @@ a {
   font-size: 1.2em;
 }
 
+.statistic {
+  margin-top: 2rem;
+}
+
 @media (max-width: 720px){
   .main {
     width: 95%;
@@ -27,3 +31,7 @@ a {
 
 }
 
+.img{
+  width: 100%; /* 宽度充满父容器 */
+  object-fit: cover; /* 填充模式，裁剪多余部分 */
+}

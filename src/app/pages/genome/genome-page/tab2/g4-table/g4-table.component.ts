@@ -35,6 +35,8 @@ import {
 } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TableService } from './get-g4-data-api.service';
+import { GeneLocation } from '../../../../../shared/dataclass/Gene';
 interface CustomColumn extends NzCustomColumn {
   name: string;
   required?: boolean;
@@ -71,6 +73,7 @@ export class G4TableComponent implements OnInit {
   @ViewChild('virtualTable', { static: false })
   nzTableComponent?: NzTableComponent<G4>;
   chromosome_name = input.required<string>();
+  abbreviation = input.required<string>();
   g4 = input.required<G4[]>();
   listOfData: G4[] = [];
   listOfDisplayData: G4[] = [];
@@ -440,7 +443,8 @@ export class G4TableComponent implements OnInit {
 
   constructor(
     private jbrowseService: JbrowseService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private tableService: TableService
   ) {
     effect(() => {
       this.loading = false;
@@ -552,5 +556,17 @@ export class G4TableComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
+  }
+  navTo(gene: string) {
+    this.tableService
+      .getGeneLocation(this.abbreviation(), this.chromosome_name(), gene)
+      .subscribe((data: GeneLocation) => {
+        this.jbrowseService.setState(
+          this.chromosome_name() + ':' + data.start + '-' + data.end
+        );
+      });
+  }
+  convertStringToArray(str: string): string[] {
+    return str.split(',');
   }
 }

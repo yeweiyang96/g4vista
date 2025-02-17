@@ -39,7 +39,7 @@ export class ChartComponent implements OnInit {
   readonly g4 = input.required<G4[]>();
   readonly chromosome = input.required<Chromosome>();
 
-  url = 'https://g4vista-api.med.niigata-u.ac.jp/mbgd/g4/';
+  // url = 'https://g4vista-api.med.niigata-u.ac.jp/mbgd/g4/';
   defaultStepSize = 10000;
   toppings: FormControl = new FormControl(); //响应式表单的方法来双向绑定选择的stepList的值
   isLoading = true;

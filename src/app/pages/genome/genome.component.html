@@ -12,5 +12,29 @@
     }
   </div>
   <mat-divider></mat-divider>
-  <section></section>
+  <div class="statistic">
+    <nz-row [nzGutter]="[24, 24]">
+      <nz-col [nzSpan]="6">
+        <nz-statistic
+          [nzValue]="(3184 | number)!"
+          nzTitle="Genome Count"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <nz-statistic
+          [nzValue]="(71338188 | number)!"
+          nzTitle="G4s Count"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="6">
+        <nz-statistic
+          [nzValue]="(11169334 | number)!"
+          nzTitle="Gene count"></nz-statistic>
+      </nz-col>
+      <nz-col [nzSpan]="10">
+        <img src="images/taxonomy.png" alt="Taxonomy" class="img" />
+      </nz-col>
+      <nz-col [nzSpan]="14">
+        <img src="images/table.png" alt="Assembly" class="img" />
+      </nz-col>
+    </nz-row>
+  </div>
 </div>

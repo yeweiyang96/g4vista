@@ -5,11 +5,12 @@ import { map } from 'rxjs/operators';
 import Papa from 'papaparse';
 import { G4 } from '../../../../../shared/dataclass/G4';
 import { DataSourceStorageService } from '../../../../../shared/service/data-source-storage.service';
+import { GeneLocation } from '../../../../../shared/dataclass/Gene';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GetG4Service {
+export class TableService {
   private apiUrl = 'https://g4vista-api.med.niigata-u.ac.jp';
 
   constructor(
@@ -51,5 +52,15 @@ export class GetG4Service {
           return result.data; // 返回解析后的对象数组
         })
       );
+  }
+  getGeneLocation(
+    abbr: string,
+    chr: string,
+    gene: string
+  ): Observable<GeneLocation> {
+    const databaseName = this.dataSourceStorageService.getStoredSource();
+    return this.http.get<GeneLocation>(
+      `${this.apiUrl}/${databaseName}/${abbr}/${chr}/${gene}/location`
+    );
   }
 }

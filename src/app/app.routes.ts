@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { TaxonomyComponent } from './pages/taxonomy/taxonomy.component';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/genome/genome.component').then(m => m.GenomeComponent),
     title: 'Genome Search-G4Vista',
+  },
+  {
+    path: 'taxonomy',
+    component: TaxonomyComponent,
   },
   {
     path: 'genome/:abbreviation',

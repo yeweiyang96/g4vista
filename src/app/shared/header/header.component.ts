@@ -27,6 +27,7 @@ export class HeaderComponent implements OnDestroy {
     { name: 'Species', route: '/genome' },
     { name: 'Gene', route: '/gene' },
     { name: 'Environment', route: '/environment' },
+    { name: 'Taxonomy', route: '/taxonomy' },
   ];
 
   constructor() {}

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { GeneResult, SearchResult } from '../dataclass/Search';
+import { GeneResult, TaxonomySearch } from '../dataclass/Search';
 import { DataSourceStorageService } from './data-source-storage.service';
 import { Observable, of } from 'rxjs';
 @Injectable({
@@ -15,17 +15,21 @@ export class SearchApiService {
     private dataSourceStorageService: DataSourceStorageService
   ) {}
 
-  search_genome(search: string): Observable<SearchResult[]> {
-    if (!search.trim()) {
+  search(
+    searchInput: string,
+    searchType: string
+  ): Observable<TaxonomySearch[]> {
+    if (!searchInput.trim()) {
       return of([]);
-    } else if (search.length < 2) {
+    } else if (searchInput.length < 3) {
       return of([]);
     }
     const databaseName = this.dataSourceStorageService.getStoredSource();
-    return this.http.get<SearchResult[]>(
-      `${this.apiUrl}/${databaseName}/genome?item=${search} `
+    return this.http.get<TaxonomySearch[]>(
+      `${this.apiUrl}/${databaseName}/${searchType}/${searchInput} `
     );
   }
+
   search_gene(search: string): Observable<GeneResult[]> {
     if (!search.trim()) {
       return of([]);

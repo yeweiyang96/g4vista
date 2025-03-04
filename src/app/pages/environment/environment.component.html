@@ -5,6 +5,14 @@
   </p>
   <div class="search-bar">
     <form class="search-bar">
+      <mat-form-field appearance="outline" class="select-phenotype">
+        <mat-label>Phenotype</mat-label>
+        <mat-select>
+          @for (phenotype of phenotypes; track phenotype) {
+            <mat-option [value]="phenotype">{{ phenotype }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
       <mat-form-field appearance="outline" class="search-taxonomy">
         <mat-label for="search-box">Search</mat-label>
         <input
@@ -36,14 +44,6 @@
             }
           }
         </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="select-phenotype">
-        <mat-label>Phenotype</mat-label>
-        <mat-select>
-          @for (phenotype of phenotypes; track phenotype) {
-            <mat-option [value]="phenotype">{{ phenotype }}</mat-option>
-          }
-        </mat-select>
       </mat-form-field>
     </form>
   </div>

@@ -1,9 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { LogoComponent } from '../logo/logo.component';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { DataSourcePickerComponent } from './data-source-picker/data-source-picker.component';
-import { Subscription } from 'rxjs';
+// import { Subscription } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 
 @Component({
@@ -20,19 +20,19 @@ import { NgTemplateOutlet } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export class HeaderComponent implements OnDestroy {
-  private subscriptions = new Subscription();
+export class HeaderComponent {
+  // private subscriptions = new Subscription();
 
   sections = [
-    { name: 'Species', route: '/genome' },
+    // { name: 'Species', route: '/genome' },
+    { name: 'Taxonomy', route: '/taxonomy' },
     { name: 'Gene', route: '/gene' },
     { name: 'Environment', route: '/environment' },
-    { name: 'Taxonomy', route: '/taxonomy' },
   ];
 
   constructor() {}
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.subscriptions.unsubscribe();
+  // }
 }

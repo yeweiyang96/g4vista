@@ -1,0 +1,47 @@
+<form class="search-form">
+  <mat-form-field appearance="outline" class="select-bar">
+    <mat-label>Taxonomy</mat-label>
+    <mat-select
+      [(ngModel)]="searchType"
+      name="taxonomy"
+      required
+      (ngModelChange)="onSearchTypeChange()">
+      @for (taxonomy of searchtypes; track taxonomy) {
+        <mat-option [value]="taxonomy">{{ taxonomy.viewValue }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" class="search-bar">
+    <mat-label for="search-box">Search</mat-label>
+    <input
+      matInput
+      #searchBox
+      id="search-box"
+      placeholder="input search term"
+      (input)="search(searchBox.value)"
+      [(ngModel)]="searchTerm"
+      name="search"
+      type="search"
+      [matAutocomplete]="auto" />
+    <mat-hint align="end">Min 3 characters</mat-hint>
+    <mat-autocomplete #auto="matAutocomplete">
+      @if (result$ | async; as result) {
+        @for (one of result; track $index) {
+          <mat-option [value]="one.name" (click)="onClick(one.name)">
+            <div mat-line>{{ one.name }}</div>
+            <span mat-line class="no-match"> count: {{ one.count }}</span>
+          </mat-option>
+        } @empty {
+          <mat-option>
+            <mat-icon>error</mat-icon>
+            <div mat-line>0 results</div>
+            <span mat-line class="no-match">
+              No matching presidents found (keywords must contain at least 3
+              characters)
+            </span>
+          </mat-option>
+        }
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

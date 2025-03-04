@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { TaxonomyComponent } from './pages/taxonomy/taxonomy.component';
 
 export const routes: Routes = [
   {
@@ -12,14 +11,26 @@ export const routes: Routes = [
     title: 'G4Vista',
   },
   {
-    path: 'genome',
+    path: 'taxonomy',
     loadComponent: () =>
-      import('./pages/genome/genome.component').then(m => m.GenomeComponent),
-    title: 'Genome Search-G4Vista',
+      import('./pages/taxonomy/taxonomy.component').then(
+        m => m.TaxonomyComponent
+      ),
+    title: 'Taxonomy Search',
   },
   {
-    path: 'taxonomy',
-    component: TaxonomyComponent,
+    path: 'gene',
+    loadComponent: () =>
+      import('./pages/gene/gene.component').then(m => m.GeneComponent),
+    title: 'Gene Search',
+  },
+  {
+    path: 'environment',
+    loadComponent: () =>
+      import('./pages/environment/environment.component').then(
+        m => m.EnvironmentComponent
+      ),
+    title: 'Env Search',
   },
   {
     path: 'genome/:abbreviation',
@@ -28,12 +39,7 @@ export const routes: Routes = [
         m => m.GenomePageComponent
       ),
   },
-  {
-    path: 'gene',
-    loadComponent: () =>
-      import('./pages/gene/gene.component').then(m => m.GeneComponent),
-    title: 'Gene Search-G4Vista',
-  },
+
   {
     path: 'genome/:abbreviation/:chromosome$',
     loadComponent: () =>
@@ -48,14 +54,12 @@ export const routes: Routes = [
         m => m.GenomePageComponent
       ),
   },
-
   {
-    path: 'environment',
+    path: 'taxonomy/:name',
     loadComponent: () =>
-      import('./pages/environment/environment.component').then(
-        m => m.EnvironmentComponent
+      import('./pages/taxonomy/taxonomy-page/taxonomy-page.component').then(
+        m => m.TaxonomyPageComponent
       ),
-    title: 'Environment Search-G4Vista',
   },
   {
     path: '404',

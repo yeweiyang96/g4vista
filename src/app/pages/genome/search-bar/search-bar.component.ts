@@ -12,8 +12,8 @@ import {
   Subject,
   switchMap,
 } from 'rxjs';
-import { SearchResult } from '../../../shared/dataclass/Search';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { TaxonomySearch } from '../../../shared/dataclass/Search';
 @Component({
   selector: 'app-search-bar',
   standalone: true,
@@ -28,7 +28,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './search-bar.component.scss',
 })
 export class SearchBarComponent implements OnInit {
-  result$!: Observable<SearchResult[]>;
+  result$!: Observable<TaxonomySearch[]>;
   private searchTerms = new Subject<string>();
   constructor(
     private apiService: SearchApiService,
@@ -43,7 +43,7 @@ export class SearchBarComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((search: string) => this.apiService.search_genome(search))
+      switchMap((search: string) => this.apiService.search(search, 'genome'))
     );
   }
 
@@ -57,7 +57,7 @@ export class SearchBarComponent implements OnInit {
   //   this.myControl.setValue('');
   // }
 
-  onClick(name: SearchResult) {
-    this.Router.navigate(['/genome', name.abbreviation]);
+  onClick(name: string) {
+    this.Router.navigate(['/genome', name]);
   }
 }

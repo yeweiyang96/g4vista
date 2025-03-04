@@ -11,10 +11,10 @@
   <mat-autocomplete #auto="matAutocomplete">
     @if (result$ | async; as result) {
       @if (result.length > 0) {
-        @for (one of result; track one.abbreviation) {
-          <mat-option [value]="one.abbreviation" (click)="onClick(one)">
-            <div mat-line>{{ one.genome }}</div>
-            <span mat-line class="no-match"> {{ one.abbreviation }}</span>
+        @for (one of result; track one) {
+          <mat-option [value]="one.name" (click)="onClick(one.name)">
+            <div mat-line>{{ one.name }}</div>
+            <span mat-line class="no-match"> {{ one }}</span>
           </mat-option>
         }
       } @else {

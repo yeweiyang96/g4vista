@@ -11,6 +11,20 @@ export const routes: Routes = [
     title: 'G4Vista',
   },
   {
+    path: 'ncbi',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/ncbi/ncbi.component').then(m => m.NcbiComponent),
+    title: 'G4Vista',
+  },
+  {
+    path: 'mbgd',
+    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/mbgd/mbgd.component').then(m => m.MbgdComponent),
+    title: 'G4Vista',
+  },
+  {
     path: 'taxonomy',
     loadComponent: () =>
       import('./pages/taxonomy/taxonomy.component').then(
